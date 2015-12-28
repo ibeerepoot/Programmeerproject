@@ -1,0 +1,25 @@
+{
+  "name": "programmeerproject",
+  "version": "1.0.0",
+  "description": "visualisatie van funda data",
+  "main": "index.js",
+  "scripts": {
+    "test": "console.log(\"test\");"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ibeerepoot/Programmeerproject.git"
+  },
+  "keywords": [
+    "funda",
+    "data",
+    "visualization",
+    "d3"
+  ],
+  "author": "Iris Beerepoot",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ibeerepoot/Programmeerproject/issues"
+  },
+  "homepage": "https://github.com/ibeerepoot/Programmeerproject#readme"
+}
