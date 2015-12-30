@@ -1,22 +1,46 @@
+/*
+werkt niet
+hoe access je een naamloze json array?
+*/
+
+function remove_whitespace(){
+	var json = JSON.parse(aanbod);
+	for (var i = 0; i < json.length; i++){
+		for (var key in i) {
+			trim(json[i][i]);
+		}
+	}
+}
+
 var Xray = require('x-ray');
 var x = Xray();
 
-x('https://dribbble.com', 'li.group', [{
-  title: '.dribbble-img strong',
-  image: '.dribbble-img [data-src]@data-src',
-}])
-  .paginate('.next_page@href')
-  .limit(3)
-  .write('results.json')
+/*
+Hoeveelheid per soort aanbod
+*/
 
+function soort_aanbod(){
+	x('http://www.funda.nl/koop/heel-nederland/', '.search-sidebar-filter:first-of-type li', [{
+		soort: '.radio-group-item .radio-group-label',
+		aantal: '.count',
+	}])
+		.write('aanbod.json')
+}
 
-// ga naar http://www.funda.nl/koop/heel-nederland/
-// pak de 1e .search-sidebar-filter
-// loop door alle .radio-group-item s
-// pak de content in .count
+/*
+Vraagprijzen woonhuizen op postcode
+*/
 
-x('http://www.funda.nl/koop/heel-nederland/', '.search-sidebar-filter:first-of-type li', [{
-	soort: '.radio-group-item .radio-group-label',
-	aantal: '.count',
-}])
-	.write('aanbod.json')
+function vraagprijzen(postcode,soort) {
+	x('http://www.funda.nl/koop/amsterdam/' + postcode + '/' + soort + '/', '.search-results li', [{
+		vraagprijs: '.search-result-price',
+	}])
+		// blijft op eerste pagina
+		.paginate('.previous-next-page:nth-of-type(2) a@href')	
+  		.limit(10)
+		.write('vraagprijzen.json')
+}
+
+soort_aanbod();
+// remove_whitespace();
+vraagprijzen(1055,'appartement');
