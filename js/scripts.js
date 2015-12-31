@@ -28,19 +28,32 @@ function soort_aanbod(){
 }
 
 /*
-Vraagprijzen woonhuizen op postcode
+Vraagprijzen huizen op postcode
 */
 
-function vraagprijzen(postcode,soort) {
-	x('http://www.funda.nl/koop/amsterdam/' + postcode + '/' + soort + '/', '.search-results li', [{
+function vraagprijzen(postcode,stad,soort) {
+	x('http://www.funda.nl/koop/' + stad + '/' + postcode + '/' + soort + '/', '.search-results li', [{
 		vraagprijs: '.search-result-price',
 	}])
-		// blijft op eerste pagina
-		.paginate('.previous-next-page:nth-of-type(2) a@href')	
+		.paginate('a[title="Volgende pagina"]@href')	
   		.limit(10)
 		.write('vraagprijzen.json')
 }
 
+/*
+Vraagprijzen verkochte huizen op postcode
+*/
+
+function verkocht(postcode,stad,soort) {
+	x('http://www.funda.nl/koop/verkocht/' + stad + '/' + postcode + '/' + soort + '/', 'li .sold', [{
+		vraagprijs: '.price-wrapper.price',
+	}])
+		.paginate('.next@href')	
+  		.limit(10)
+		.write('verkocht.json')
+}
+
 soort_aanbod();
 // remove_whitespace();
-vraagprijzen(1055,'appartement');
+vraagprijzen(1055,'amsterdam','appartement');
+verkocht(1624,'hoorn-nh','appartement');
