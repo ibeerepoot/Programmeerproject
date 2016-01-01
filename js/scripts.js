@@ -46,7 +46,13 @@ Vraagprijzen verkochte huizen op postcode
 
 function verkocht(postcode,stad,soort) {
 	x('http://www.funda.nl/koop/verkocht/' + stad + '/' + postcode + '/' + soort + '/', '.object-list li', [{
+		adres: 'a.object-street',
 		vraagprijs: '.price',
+		details: x('a.object-street@href', '.transaction-data' [{
+			aangeboden_sinds: '.transaction-date::nth-of-type(1) strong',
+			looptijd: '.transaction-date::nth-of-type(2) strong',
+			verkoopdatum: '.transaction-date::nth-of-type(3) strong',
+		}])
 	}])
 		.paginate('.next@href')	
   		.limit(10)
