@@ -22,7 +22,7 @@ Hier scheid ik direct de kopers en verkopers.
 ## Kopers - soort huis
 ![Kopers - soort huis](doc/kopen-soorthuis.png)
 
-De koper kiest hier het soort huis dat hij of zij wil: woonhuis, appartement, parkeerplaats of bouwgrond. Funda maakt hier ook onderscheid tussen en deze stap zorgt ervoor dat de scraper niet door alle huizen heen hoeft, maar alleen door bijvoorbeeld alle appartementen. Bovendien zouden parkeerplaatsen de gemiddelde vraagprijs omlaag halen, terwijl de gebruikers misschien helemaal niet geïnteresseerd is in parkeerplaatsen.
+De koper kiest hier het soort huis dat hij of zij wil: woonhuis, appartement, parkeerplaats of bouwgrond. Funda maakt hier ook onderscheid tussen en deze stap zorgt ervoor dat de scraper niet door alle huizen heen hoeft, maar alleen door bijvoorbeeld alle appartementen. Bovendien zouden parkeerplaatsen de gemiddelde vraagprijs omlaag halen, terwijl de gebruiker misschien helemaal niet geïnteresseerd is in parkeerplaatsen.
 
 Op de site van Funda staan wel de aantallen vermeld, maar dit zegt een bezoeker niet zoveel. Een pie chart geeft meteen een visueel overzicht van de aantallen.
 
@@ -51,9 +51,9 @@ Daarnaast heb ik de gemiddelde vraagprijs in die postcode voor dat soort huis no
 
 Ik zou ook graag nog verder willen filteren op:
 
-# aantal kamers: 1, 2+, 3+, 4+, 5+
-# woonoppervlakte: 50+, 75+, 100+, 150+, 250+
-# aanwezigheid van: balkon, bedrijfsruimte, CV ketel, dakterras, duurzame energie, garage, jacuzzi, kluswoning, lift, lig/zitbad, monumentaal pand, open haard, sauna, schuur/berging, stoomcabine, tuin, zwembad
+* aantal kamers: 1, 2+, 3+, 4+, 5+
+* woonoppervlakte: 50+, 75+, 100+, 150+, 250+
+* aanwezigheid van: balkon, bedrijfsruimte, CV ketel, dakterras, duurzame energie, garage, jacuzzi, kluswoning, lift, lig/zitbad, monumentaal pand, open haard, sauna, schuur/berging, stoomcabine, tuin, zwembad
 
 ## Verkopers - soort huis
 ![Verkopers - soort huis](doc/verkopen-soorthuis.png)
@@ -76,9 +76,9 @@ De laatste maanden komen direct in beeld, de maanden daarvoor kunnen ook worden 
 
 Ook hier zou ik verder willen filteren op:
 
-# aantal kamers: 1, 2+, 3+, 4+, 5+
-# woonoppervlakte: 50+, 75+, 100+, 150+, 250+
-# aanwezigheid van: balkon, bedrijfsruimte, CV ketel, dakterras, duurzame energie, garage, jacuzzi, kluswoning, lift, lig/zitbad, monumentaal pand, open haard, sauna, schuur/berging, stoomcabine, tuin, zwembad
+* aantal kamers: 1, 2+, 3+, 4+, 5+
+* woonoppervlakte: 50+, 75+, 100+, 150+, 250+
+* aanwezigheid van: balkon, bedrijfsruimte, CV ketel, dakterras, duurzame energie, garage, jacuzzi, kluswoning, lift, lig/zitbad, monumentaal pand, open haard, sauna, schuur/berging, stoomcabine, tuin, zwembad
 
 ## API's en andere componenten
 Voor de scraper gebruik ik node.js in combinatie met de x-ray module van https://github.com/lapwinglabs/x-ray. x-ray schrijft de verzamelde informatie weg naar een json-bestand. 
