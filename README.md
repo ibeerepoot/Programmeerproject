@@ -8,7 +8,7 @@ Vragen voor kopers:
 
 Vragen voor verkopers:
 * Hoeveel kan ik ervoor vragen?
-* Hoe lang duurt het voordat huizen worden verkocht?
+* Hoe lang duurt het voordat huizen (in de buurt) worden verkocht?
 
 Dit zijn vragen die niet kunnen worden beantwoord met behulp van de huidige Funda-website. 
 
@@ -22,7 +22,7 @@ Hier scheid ik direct de kopers en verkopers.
 ## Kopers - soort huis
 ![Kopers - soort huis](doc/kopen-soorthuis.png)
 
-De koper kiest hier het soort huis dat hij of zij wil: woonhuis, appartement, parkeerplaats of bouwgrond. Funda maakt hier ook onderscheid tussen en deze stap zorgt ervoor dat de scraper niet door alle huizen heen hoeft, maar alleen door bijvoorbeeld alle appartementen. 
+De koper kiest hier het soort huis dat hij of zij wil: woonhuis, appartement, parkeerplaats of bouwgrond. Funda maakt hier ook onderscheid tussen en deze stap zorgt ervoor dat de scraper niet door alle huizen heen hoeft, maar alleen door bijvoorbeeld alle appartementen. Bovendien zouden parkeerplaatsen de gemiddelde vraagprijs omlaag halen, terwijl de gebruikers misschien helemaal niet geïnteresseerd is in parkeerplaatsen.
 
 Op de site van Funda staan wel de aantallen vermeld, maar dit zegt een bezoeker niet zoveel. Een pie chart geeft meteen een visueel overzicht van de aantallen.
 
@@ -57,3 +57,34 @@ Ik zou ook graag nog verder willen filteren op:
 
 ## Verkopers - soort huis
 ![Verkopers - soort huis](doc/verkopen-soorthuis.png)
+
+Ook de verkopers worden gescheiden op basis van het soort huis waarin ze geïnteresseerd zijn. Ik wil niet dat gebruikers te lang moeten wachten op de visualisatie, dus de scraper moet niet te lang duren. 
+
+### Benodigde informatie
+1. http://www.funda.nl/koop/verkocht/heel-nederland/
+[is nog niet vernieuwd, straks wel?]
+2. 1e .search-sidebar-filter  
+3. alle .radio-group-items
+4. .count
+
+## Verkopers - marktsituatie
+![Verkopers - marktsituatie](doc/verkopen-tijdlijn.png)
+
+Nadat de verkoper een postcode heeft ingevuld kan hij of zij beginnen met de analyse van de marktsituatie in dat gebied. Van elk verkocht huis van het gekozen type in de gekozen postcode kan worden afgelezen wat de vraagprijs is en hoe lang het te koop staat en of het in prijs is gedaald. Ook kan er worden doorgeklikt op het huis, waarna de bezoeker naar dat huis op de Funda site wordt gebracht. Zo kan hij of zij het huis direct vergelijken met het eigen te verkopen huis. 
+
+De laatste maanden komen direct in beeld, de maanden daarvoor kunnen ook worden weergegeven. 
+
+Ook hier zou ik verder willen filteren op:
+
+# aantal kamers: 1, 2+, 3+, 4+, 5+
+# woonoppervlakte: 50+, 75+, 100+, 150+, 250+
+# aanwezigheid van: balkon, bedrijfsruimte, CV ketel, dakterras, duurzame energie, garage, jacuzzi, kluswoning, lift, lig/zitbad, monumentaal pand, open haard, sauna, schuur/berging, stoomcabine, tuin, zwembad
+
+## API's en andere componenten
+Voor de scraper gebruik ik node.js in combinatie met de x-ray module van https://github.com/lapwinglabs/x-ray. x-ray schrijft de verzamelde informatie weg naar een json-bestand. 
+
+Voor de visualisatie maak ik gebruik van D3.js. De json-data van de scraper kan ik gemakkelijk gebruiken in D3. 
+
+Ik hoop dat ik gebruik mag maken van de Postcode API van Webmapper. Daar is een gebruikersnaam voor nodig. Deze geeft de geografische informatie terug in de vorm van kant en klare geoJSON. Als ik hier geen toestemming voor krijg zal ik een postcode shapefile moeten gebruiken en die naar geoJSON omzetten. Het nadeel hiervan is dat postcode-data niet geüpdated wordt, wat bij de Postcode API wel het geval is. 
+
+De applicatie krijgt de vorm van een onepage website met de vijf bovengenoemde onderdelen. Om een voorbeeld hiervan te geven: de knop 'Ik wil een huis kopen' brengt de gebruiker door middel van een anchor-link naar het juiste onderdeel. De visualisaties worden pas geladen wanneer de gebruiker een keus maakt wat betreft soort huis en postcode.
