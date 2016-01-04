@@ -1,11 +1,6 @@
 var Xray = require('x-ray'); // https://github.com/lapwinglabs/x-ray
 var x = Xray();
 
-var request = require('request');
-var jsonfile = require('jsonfile');
-var util = require('util');
-var needle = require('needle');
-
 /*
 Hoeveelheid per soort aanbod
 */
@@ -52,37 +47,6 @@ function verkocht(postcode,stad,soort) {
 		.write('verkocht.json')
 }
 
-function steden() {
-	// open het bestand
-	var file = 'postcodes.json'
-	jsonfile.readFile(file, function(error, postcodes) {
-		var steden = {};
-		// loop door alle postcodes in het bestand
-		postcodes.forEach(function(postcode) {
-			var bijbehorende_stad = "Amsterdam";
-			var form = {
-				'filter_location' : postcode.PC4,
-				'autocomplete-identifier' : '0',
-				'filter_location_-previous' : '',
-				'filter_Afstand' : '0',
-				'filter_FundaKoopPrijsVan' : '0',
-				'filter_FundaKoopPrijsTot' : 'ignore_filter'
-			};
-			needle.post('http://www.funda.nl/objectresultlist/index/', form, function(err, resp, body) {
-				if(!err){
-					console.log(resp.headers.location);
-				}
-				else {
-					console.log(err);
-				}
-			});
-			steden[postcode.PC4] = bijbehorende_stad; 
-
-		});
-		jsonfile.writeFile('postcodes_met_steden.json', steden);
-	})
-}
-//soort_aanbod();
-//vraagprijzen(1055,'amsterdam','appartement');
-//verkocht(1624,'hoorn-nh','appartement');
-steden();
+soort_aanbod();
+vraagprijzen(1055,'amsterdam','appartement');
+verkocht(1624,'hoorn-nh','appartement');
