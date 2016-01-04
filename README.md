@@ -41,8 +41,13 @@ Nu de koper gekozen heeft voor een soort huis, kan een weergave worden getoond v
 
 Gebruikers kunnen ook een laag met treinstations toevoegen en een met snelwegen. Zo kun je op zoek naar een huis dat in een goedkoper gebied is maar wel gunstig ligt ten opzichte van je werk. 
 
+Mogelijke toevoegingen:
+
+* Extra informatie over de postcode kan worden opgevraagd door over de postcode te hoveren. 
+* Afstand tot POI kan worden opgevraagd: POI is bijvoorbeeld je werk, dat mag niet langer dan 30 min met de auto zijn of 60 min met OV. -> https://developers.google.com/maps/documentation/distance-matrix/intro
+
 ### Benodigde informatie
-Shapefile/geoJSON met postcodegebieden, een met treinstations en een met snelwegen. www.postcodeapi.nu geeft bij het geven van een postcode een geoJSON terug van dat gebied.
+Shapefile/geoJSON met postcodegebieden, een met treinstations en een met snelwegen. http://places.geocoders.nl/ geeft bij het geven van een postcode een geoJSON terug van dat gebied.
 
 Daarnaast heb ik de gemiddelde vraagprijs in die postcode voor dat soort huis nodig:
 

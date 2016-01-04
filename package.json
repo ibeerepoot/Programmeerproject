@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/ibeerepoot/Programmeerproject/issues"
   },
-  "homepage": "https://github.com/ibeerepoot/Programmeerproject#readme"
+  "homepage": "https://github.com/ibeerepoot/Programmeerproject#readme",
+  "dependencies": {
+    "jsonfile": "^2.2.3"
+  }
 }
