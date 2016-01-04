@@ -8,4 +8,4 @@ http://www.funda.nl/koop/' + stad + '/' + postcode + '/' + soort + '/
 Ik moet dus ook aan de url kunnen toevoegen in welke stad de postcode zit. Postcode 1624 in Hoorn heeft als url:
 http://www.funda.nl/koop/hoorn-nh/1624/
 
-
+Opgelost met POST request naar funda site. Moest wel met delay want funda gooide me er eerst uit.
