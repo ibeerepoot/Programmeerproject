@@ -1,18 +1,103 @@
-<!doctype html>
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>HTML page</title>
-  <meta name="description" content="HTML page">
-  <meta name="author" content="Iris Beerepoot">
-  <link rel="stylesheet" href="css/styles.css">
-  <script src="d3/d3.min.js" charset="utf-8"></script>
-  <script type="text/javascript" src="js/scripts.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Huisje, boompje, feestje</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet"> 
+	<link href="css/main.css" rel="stylesheet">
+	<link href="css/responsive.css" rel="stylesheet">
+	<script src="d3/d3.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="js/scripts.js"></script>
 
-</head>
+    <!--[if lt IE 9]>
+	    <script src="js/html5shiv.js"></script>
+	    <script src="js/respond.min.js"></script>
+    <![endif]-->       
+</head><!--/head-->
 
 <body>
-  <p>Hoi</p> 
+    <!--/#header-->
+
+    <section id="home-slider">
+        <div class="container">
+            <div class="row">
+                <div class="main-slider">
+                    <div class="slide-text">
+                        <h1>Huisje, boompje, feestje.</h1>
+                        <h2>Koper?</h2> <p>Kom erachter waar de duurste en goedkoopste delen van Nederland zijn en hoe die zich verhouden tot de treinstations en snelwegen.</p>
+                        <h2>Verkoper?</h2> <p>Vind uit hoeveel je voor je huis kunt vragen en hoe lang huizen in de buurt te koop staan.</p>
+                        <a href="#kopers" class="btn btn-common">Ik wil een huis kopen</a>
+                        <a href="#verkopers" class="btn btn-common">Ik wil een huis verkopen</a>
+                    </div>
+                    <img src="images/home/slider/hill.png" class="slider-hill" alt="slider image">
+                    <img src="images/home/slider/house.png" class="slider-house" alt="slider image">
+                    <img src="images/home/slider/sun.png" class="slider-sun" alt="slider image">
+                    <img src="images/home/slider/birds1.png" class="slider-birds1" alt="slider image">
+                    <img src="images/home/slider/birds2.png" class="slider-birds2" alt="slider image">
+                </div>
+            </div>
+        </div>
+        <div class="preloader"><i class="fa fa-sun-o fa-spin"></i></div>
+    </section>
+    <!--/#home-slider-->
+
+    <section id="kopers">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="clients text-center wow fadeInUp" data-wow-duration="500ms" data-wow-delay="300ms">
+                        <p><img src="images/home/clients.png" class="img-responsive" alt=""></p>
+                        <h1 class="title">Kopers</h1>
+                        <p>Dus je wilt een huis kopen, leuk! <br> Kies hier een type bezit waarin je geïnteresseerd bent. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </section>
+    <!--/#clients-->
+
+    <section id="verkopers">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="clients text-center wow fadeInUp" data-wow-duration="500ms" data-wow-delay="300ms">
+                        <p><img src="images/home/clients.png" class="img-responsive" alt=""></p>
+                        <h1 class="title">Verkopers</h1>
+                        <p>Wil je je huis verkopen? <br> Kies hier het type bezit dat je wilt verkopen. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </section>
+    <!--/#clients-->
+
+    <footer id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 text-center bottom-separator">
+                    <img src="images/home/under.png" class="img-responsive inline" alt="">
+                </div>
+                <div class="col-sm-12">
+                    <div class="copyright-text text-center">
+                        <p>&copy; Huisje, boompje, feestje.</p>
+                        <p>Iris Beerepoot. Template van <a target="_blank" href="http://www.themeum.com">Themeum</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--/#footer-->
+    <script type="text/javascript" src="js/viz.js"></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/lightbox.min.js"></script>
+    <script type="text/javascript" src="js/wow.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>   
 </body>
 </html>

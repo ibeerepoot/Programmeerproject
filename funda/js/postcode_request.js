@@ -5,7 +5,7 @@ var needle = require('needle');
 
 function steden() {
 	// open het bestand
-	var file = 'postcodes.json'
+	var file = 'json/postcodes.json'
 	jsonfile.readFile(file, function(error, postcodes) {
 		var steden = {};
 		var timeout = 0;
@@ -26,7 +26,7 @@ function steden() {
 					if(!err){
 						bijbehorende_stad = resp.headers.location;
 						steden[postcode.PC4] = bijbehorende_stad;
-						jsonfile.writeFile('postcodes_met_steden.json', steden);
+						jsonfile.writeFile('json/postcodes_met_steden.json', steden);
 					}
 					else {
 						console.log(err);
@@ -37,7 +37,7 @@ function steden() {
 			timeout += 1000;
 
 		});
-		// jsonfile.writeFile('postcodes_met_steden.json', steden);
+		// jsonfile.writeFile('json/postcodes_met_steden.json', steden);
 	})
 }
 

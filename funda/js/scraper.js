@@ -10,7 +10,7 @@ function soort_aanbod(){
 		soort: '.radio-group-item .radio-group-label',
 		aantal: '.count',
 	}])
-		.write('aanbod.json')
+		.write('json/aanbod.json')
 }
 
 /*
@@ -24,7 +24,7 @@ function vraagprijzen(postcode,stad,soort) {
 	}])
 		.paginate('a[title="Volgende pagina"]@href')	
   		.limit(10)
-		.write('vraagprijzen.json')
+		.write('json/vraagprijzen.json')
 }
 
 /*
@@ -44,7 +44,7 @@ function verkocht(postcode,stad,soort) {
 	}])
 		.paginate('.next@href')	
   		.limit(10)
-		.write('verkocht.json')
+		.write('json/verkocht.json')
 }
 
 soort_aanbod();
