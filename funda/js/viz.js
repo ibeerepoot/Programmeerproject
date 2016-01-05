@@ -1,8 +1,4 @@
-d3.json("js/json/aanbod.json", function(error,json) {
-	if (error) return console.warn(error);
-	dataset = json;
-	console.log(data);
-
+function visualizeit(){
 	// http://bl.ocks.org/dbuezas/9306799
 
 	var width = 300;
@@ -31,7 +27,25 @@ d3.json("js/json/aanbod.json", function(error,json) {
 	  .append('path')
 	  .attr('d', arc)
 	  .attr('fill', function(d, i) { 
-	    return color(d.data.soort);
+	  	console.log(d);
+	    return color(d.data.aantal);
 	  });
+
+	path.append("text")
+		/*
+		.attr("transform", function(d) {
+			return "translate(" + arc.centroid(d) + ")";
+		})
+*/
+		.attr("text-anchor", "middle")
+		.text(function(d) {
+			return d.data.soort;
+		})
+}
+
+d3.json("js/json/aanbod.json", function(error,json) {
+	if (error) return console.warn(error);
+	dataset = json;
+	visualizeit();
 })
 
