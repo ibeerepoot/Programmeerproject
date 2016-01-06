@@ -7,6 +7,23 @@
   Version: 1.1
   */
 
+  /*
+  Custom CSS Iris
+  */
+
+  svg:not(:root) {
+    width: 650px;
+    height: 650px;
+  }
+
+  #verkopers img, #verkopers h2 {
+    opacity: 0.5;
+  }
+
+  #verkopers img:hover, #verkopers h2:hover {
+    opacity: 1.0;
+  }
+
   @import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,700);
   @import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
   @import url(http://fonts.googleapis.com/css?family=Noto+Sans:400,700);

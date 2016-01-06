@@ -5,8 +5,9 @@ var x = Xray();
 Hoeveelheid per soort aanbod
 */
 
-function soort_aanbod(){
-	x('http://www.funda.nl/koop/heel-nederland/', '.search-sidebar-filter:first-of-type li', [{
+function soort_aanbod_koop(){
+	// pak alleen de vier grootste
+	x('http://www.funda.nl/koop/heel-nederland/', '.search-sidebar-filter:first-of-type li:nth-child(-n+5)', [{
 		soort: '.radio-group-item .radio-group-label',
 		aantal: '.count',
 	}])
@@ -47,6 +48,7 @@ function verkocht(postcode,stad,soort) {
 		.write('json/verkocht.json')
 }
 
-soort_aanbod();
+soort_aanbod_koop();
+soort_aanbod_verkocht();
 vraagprijzen(1055,'amsterdam','appartement');
 verkocht(1624,'hoorn-nh','appartement');

@@ -14,6 +14,7 @@
 	<link href="css/responsive.css" rel="stylesheet">
 	<script src="d3/d3.min.js" charset="utf-8"></script>
 	<script type="text/javascript" src="js/scripts.js"></script>
+    <script type="text/javascript" src="js/d3pie.min.js"></script>
 
     <!--[if lt IE 9]>
 	    <script src="js/html5shiv.js"></script>
@@ -53,8 +54,10 @@
                 <div class="col-sm-12">
                     <div class="clients text-center wow fadeInUp" data-wow-duration="500ms" data-wow-delay="300ms">
                         <h1 class="title">Kopers</h1>
-                        <p>Dus je wilt een huis kopen, leuk! <br> Kies hier een type bezit waarin je geïnteresseerd bent. </p>
+                        <p>Dus je wilt iets kopen, leuk! <br> Kies hier een type bezit waarin je geïnteresseerd bent. </p>
+                        <div id="pieChart" class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms"></div>
                     </div>
+                    
                 </div>
             </div>
         </div>
@@ -66,9 +69,42 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="clients text-center wow fadeInUp" data-wow-duration="500ms" data-wow-delay="300ms">
-                        <p><img src="images/home/clients.png" class="img-responsive" alt=""></p>
                         <h1 class="title">Verkopers</h1>
-                        <p>Wil je je huis verkopen? <br> Kies hier het type bezit dat je wilt verkopen. </p>
+                        <p>Wil je gaan verkopen? <br> Kies hier het type bezit dat je wilt verkopen. </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div id="verkopers-woonhuis" class="col-sm-3 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
+                    <div class="verkoop single-service">
+                        <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
+                            <img src="images/icons/home78.png" alt="">
+                        </div>
+                        <h2>Woonhuis</h2>
+                    </div>
+                </div>
+                <div id="verkopers-appartement" class="col-sm-3 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
+                    <div class="verkoop single-service">
+                        <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="600ms">
+                            <img src="images/icons/building166 (2).png" alt="">
+                        </div>
+                        <h2>Appartement</h2>
+                    </div>
+                </div>
+                <div id="verkopers-parkeerplaats" class="col-sm-3 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="900ms">
+                    <div class="verkoop single-service">
+                        <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="900ms">
+                            <img src="images/icons/parking12 (3).png" alt="">
+                        </div>
+                        <h2>Parkeerplaats</h2>
+                    </div>
+                </div>
+                <div id="verkopers-bouwgrond" class="col-sm-3 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
+                    <div class="verkoop single-service">
+                        <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="1200ms">
+                            <img src="images/icons/worker5.png" alt="">
+                        </div>
+                        <h2>Bouwgrond</h2>
                     </div>
                 </div>
             </div>
