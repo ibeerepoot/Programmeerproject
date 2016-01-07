@@ -15,12 +15,12 @@ Dit zijn vragen die niet kunnen worden beantwoord met behulp van de huidige Fund
 De tool begint met een landing page:
 
 ## Landing page
-![Home](doc/home.png)
+![Home](doc/home (2).png)
 
 Hier scheid ik direct de kopers en verkopers. 
 
 ## Kopers - soort huis
-![Kopers - soort huis](doc/kopen-soorthuis.png)
+![Kopers - soort huis](doc/huiskopen1van2.png)
 
 De koper kiest hier het soort huis dat hij of zij wil: woonhuis, appartement, parkeerplaats of bouwgrond. Funda maakt hier ook onderscheid tussen en deze stap zorgt ervoor dat de scraper niet door alle huizen heen hoeft, maar alleen door bijvoorbeeld alle appartementen. Bovendien zouden parkeerplaatsen de gemiddelde vraagprijs omlaag halen, terwijl de gebruiker misschien helemaal niet geïnteresseerd is in parkeerplaatsen.
 
@@ -35,7 +35,7 @@ Aantal huizen per categorie over heel Nederland.
 4. .count
 
 ## Kopers - choropleth
-![Kopers - choropleth](doc/kopen-choro.png)
+![Kopers - choropleth](doc/huiskopen2van2.png)
 
 Nu de koper gekozen heeft voor een soort huis, kan een weergave worden getoond van de prijzen van dat soort huis in Nederland. Dit gebeurt door middel van een choropleth-kaart. Postcodegebieden zijn gekleurd op basis van prijs. Het gaat hier om 4-cijferige postcodes. Ik kies bewust voor 4-cijferige postcodes, en niet voor bijvoorbeeld steden. In het laatste geval zou bijvoorbeeld heel Amsterdam een kleur krijgen, terwijl het juist interessant kan zijn om te zien welke gebieden in Amsterdam nu duurder zijn dan andere.
 
@@ -61,9 +61,9 @@ Ik zou ook graag nog verder willen filteren op:
 * aanwezigheid van: balkon, bedrijfsruimte, CV ketel, dakterras, duurzame energie, garage, jacuzzi, kluswoning, lift, lig/zitbad, monumentaal pand, open haard, sauna, schuur/berging, stoomcabine, tuin, zwembad
 
 ## Verkopers - soort huis
-![Verkopers - soort huis](doc/verkopen-soorthuis.png)
+![Verkopers - soort huis](doc/huisverkopen1van2.png)
 
-Ook de verkopers worden gescheiden op basis van het soort huis waarin ze geïnteresseerd zijn. Ik wil niet dat gebruikers te lang moeten wachten op de visualisatie, dus de scraper moet niet te lang duren. 
+Ook de verkopers worden gescheiden op basis van het soort huis waarin ze geïnteresseerd zijn. Ik gebruik nu icoontjes ipv pie chart, want de verkoper hoeft niet geleid te worden in het proces: hij of zij heeft iets en wil dat verkopen.
 
 ### Benodigde informatie
 1. http://www.funda.nl/koop/verkocht/heel-nederland/
@@ -73,7 +73,7 @@ Ook de verkopers worden gescheiden op basis van het soort huis waarin ze geïnte
 4. .count
 
 ## Verkopers - marktsituatie
-![Verkopers - marktsituatie](doc/verkopen-tijdlijn.png)
+![Verkopers - marktsituatie](doc/huisverkopen2van2.png)
 
 Nadat de verkoper een postcode heeft ingevuld kan hij of zij beginnen met de analyse van de marktsituatie in dat gebied. Van elk verkocht huis van het gekozen type in de gekozen postcode kan worden afgelezen wat de vraagprijs is en hoe lang het te koop staat en of het in prijs is gedaald. Ook kan er worden doorgeklikt op het huis, waarna de bezoeker naar dat huis op de Funda site wordt gebracht. Zo kan hij of zij het huis direct vergelijken met het eigen te verkopen huis. 
 

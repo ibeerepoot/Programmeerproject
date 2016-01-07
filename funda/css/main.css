@@ -16,12 +16,55 @@
     height: 650px;
   }
 
-  #verkopers img, #verkopers h2 {
+  #icoontjes img, #icoontjes h2 {
     opacity: 0.5;
   }
 
-  #verkopers img:hover, #verkopers h2:hover {
+  #icoontjes img:hover, #icoontjes h2:hover {
     opacity: 1.0;
+  }
+
+  #verkopers {
+    margin-bottom: 50px;
+  }
+
+  #choro {
+    display: none;
+    margin-top: 50px;
+  }
+
+  #choro-info {
+    text-align: left;
+  }
+
+  .checkbox label {
+    font-family: "Lato";
+    font-weight: 300;
+  }
+
+  #verkoopinfo {
+    width: 100%;
+  }
+
+  #verkoopinfo {
+    display: none;
+  }
+
+  #verkopers-stap-2 {
+    display: none;
+  }
+
+  #verkoopinfo .form-group label {
+    display: inline;
+  }
+
+  #verkoopinfo .form-group input {
+    display: inline;
+    width: 200px;
+  }
+
+  #verkoopinfo img {
+    margin-bottom: 100px;
   }
 
   @import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,700);
