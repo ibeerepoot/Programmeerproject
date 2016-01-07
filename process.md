@@ -21,3 +21,8 @@ Bezig geweest het aanbod in Nederland per type netjes in een pie chart te krijge
 .replace(/\s/g,'').split(/[0-9]/)[0]
 
 Bij het deel Verkopers wilde ik niet weer een piechart doen, dus heb ik nu vier icoontjes waar je op klikt om verder te gaan.
+
+# 7 januari
+Gewerkt aan de transitions van de applicatie, dus van de pie chart naar de choropleth en van de icoontjes naar de informatie voor verkopers. Zat eerst heel moeilijk te doen met visibility classes en dan met addClass en removeClass maar het was eigenlijk heel simpel met jQuery hide() en show(). 
+
+Het prototype krijgt hierdoor echt vorm. Ook heb ik het design voor de verkoopinformatie verder uitgedacht. Het wordt een soort grid met ingekleurde vakjes voor de weken dat een huis te koop heeft gestaan. Een beetje net als de activiteit van een gebruiker op Github. Als je er dan overheen hovert krijg je de vraagprijs en meer info te zien. 

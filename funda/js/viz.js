@@ -38,7 +38,7 @@ d3.json("js/json/aanbod.json", function(error,json) {
 
 	var pie = new d3pie("pieChart", {
 		"footer": {
-			"text": "Aanbod in Nederland. Aantallen x1000.",
+			"text": "Huidige aanbod in Nederland.",
 			"color": "#999999",
 			"fontSize": 17,
 			"font": "Lato",

@@ -15,7 +15,7 @@ Dit zijn vragen die niet kunnen worden beantwoord met behulp van de huidige Fund
 De tool begint met een landing page:
 
 ## Landing page
-![Home](doc/home (2).png)
+![Home](doc/home2.png)
 
 Hier scheid ik direct de kopers en verkopers. 
 
