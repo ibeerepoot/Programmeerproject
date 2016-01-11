@@ -11,9 +11,14 @@
   Custom CSS Iris
   */
 
-  svg:not(:root) {
+  #pieChart svg:not(:root) {
     width: 650px;
     height: 650px;
+  }
+
+  #map svg:not(:root) {
+    width: inherit;
+    height: inherit;
   }
 
   #icoontjes img, #icoontjes h2 {

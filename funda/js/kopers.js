@@ -1,28 +1,3 @@
-var map = L.map('map').setView([52.3167, 5.55], 7);
-
-L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-	//minZoom: 7,
-    //maxZoom: 18,
-    id: 'ibeerepoot.olc86g36',
-    accessToken: 'pk.eyJ1IjoiaWJlZXJlcG9vdCIsImEiOiJjaWo3Y3lqcWkwMDU2dzNtMzV0bnViM2s0In0.egPnUZiAx1Wj9B4pwZlNyQ'
-}).addTo(map);
-
-var geo;
-
-d3.json('http://places.geocoders.nl/ibeerepoot/an4cvffw/162', function(error,geo) {
-	console.log(geo);
-})
-
-L.geoJson(geo).addTo(map);
-
-// loop through geojson files
-for (var i = 101; i < 120; i++) {
-	d3.json('/Programmeerproject/funda/js/geojson/' + i + '.json', function(geojson) {
-		// add the geojson data to the map
-		L.geoJson(geojson).addTo(map);
-	})
-}
-
 function from_pie_to_map(soort) {
 	console.log("From pie to map: ", soort);
 
@@ -135,4 +110,34 @@ d3.json("js/json/aanbod.json", function(error,json) {
 	});
 })
 
+/*
+http://leafletjs.com/examples/choropleth.html
+*/
+
+var map = L.map('map').setView([52.3167, 5.55], 7);
+
+L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+	minZoom: 7,
+    maxZoom: 18,
+    id: 'ibeerepoot.olc86g36',
+    accessToken: 'pk.eyJ1IjoiaWJlZXJlcG9vdCIsImEiOiJjaWo3Y3lqcWkwMDU2dzNtMzV0bnViM2s0In0.egPnUZiAx1Wj9B4pwZlNyQ'
+}).addTo(map);
+
+function style(feature) {
+    return {
+        weight: 1,
+        opacity: 1,
+        color: 'green',
+        dashArray: '3',
+        fillOpacity: 0.3
+    };
+}
+
+// loop through geojson files
+for (var i = 101; i < 1000; i++) {
+	d3.json('/Programmeerproject/funda/js/geojson/minified/' + i + '.json', function(geojson) {
+		// add the geojson data to the map
+		L.geoJson(geojson, {style: style}).addTo(map);
+	})
+}
 
