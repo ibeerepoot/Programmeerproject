@@ -2,16 +2,6 @@ var Xray = require('x-ray'); // https://github.com/lapwinglabs/x-ray
 var x = Xray();
 
 /*
-Scrape geojson
-*/
-
-function scrape_geojson() {
-	x('http://places.geocoders.nl/ibeerepoot/an4cvffw/119', 'html')(function(err, pre) {
-	  console.log(pre) // Google
-	})
-}
-
-/*
 Hoeveelheid per soort aanbod
 */
 
@@ -62,8 +52,7 @@ function verkocht(soort,limit) {
 // soort_aanbod_koop();
 // vraagprijzen('parkeerplaats',95);
 // vraagprijzen('bouwgrond',372);
-// vraagprijzen('appartement',3155);
+vraagprijzen('appartement',3136);
 // vraagprijzen('woonhuis',9500);
-scrape_geojson();
 
 // verkocht('appartement',);

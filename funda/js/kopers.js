@@ -133,11 +133,13 @@ function style(feature) {
     };
 }
 
+var baseLayer = L.geoJson([],{style:style}).addTo(map);
+
 // loop through geojson files
 for (var i = 101; i < 1000; i++) {
 	d3.json('/Programmeerproject/funda/js/geojson/minified/' + i + '.json', function(geojson) {
 		// add the geojson data to the map
-		L.geoJson(geojson, {style: style}).addTo(map);
+		baseLayer.addData(geojson);
 	})
 }
 
