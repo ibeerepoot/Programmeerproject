@@ -26,3 +26,18 @@ Bij het deel Verkopers wilde ik niet weer een piechart doen, dus heb ik nu vier 
 Gewerkt aan de transitions van de applicatie, dus van de pie chart naar de choropleth en van de icoontjes naar de informatie voor verkopers. Zat eerst heel moeilijk te doen met visibility classes en dan met addClass en removeClass maar het was eigenlijk heel simpel met jQuery hide() en show(). 
 
 Het prototype krijgt hierdoor echt vorm. Ook heb ik het design voor de verkoopinformatie verder uitgedacht. Het wordt een soort grid met ingekleurde vakjes voor de weken dat een huis te koop heeft gestaan. Een beetje net als de activiteit van een gebruiker op Github. Als je er dan overheen hovert krijg je de vraagprijs en meer info te zien. 
+
+# 8 januari
+Design document en presentatie.
+
+# 11 januari
+Begonnen met choropleth map mbv Leaflet.js. Daarmee kun je namelijk verschillende lagen toevoegen aan een basemap van mapbox, wat echt top is voor mijn project. En je kan makkelijk layers toevoegen voor treinstations en snelwegen. Dit gaat makkelijker dan met D3-kaarten. 
+
+Geojsons van alle postcodes gescraped van places.geocoders API. 
+
+De vorm van de postcodes was wel goed, maar de plek kwam niet overeen met de plek van Nederland op de basemap. Bleek uiteindelijk door bootstrap te komen. Nu komt ie wel overeen. Style wat aangepast.
+
+# 12 januari
+Begin met berekenen vraagprijzen per postcode. Ik heb een geojson met alle appartementen bijvoorbeeld, en elk appartement heeft daar een adres, postcode en vraagprijs. Nu moet ik alle appartementen met dezelfde postcode gaan koppelen en daar het gemiddelde van berekenen. Heel inefficient om elke keer alles door de loopen op zoek naar de zelfde postcode. 
+
+Oplossen met crossfilter module?
