@@ -123,69 +123,68 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
     accessToken: 'pk.eyJ1IjoiaWJlZXJlcG9vdCIsImEiOiJjaWo3Y3lqcWkwMDU2dzNtMzV0bnViM2s0In0.egPnUZiAx1Wj9B4pwZlNyQ'
 }).addTo(map);
 
-function getColor(postcode) {
-	// open het gecleande bestand met postcodes en gemiddelde vraagprijzen
-	d3.json('/Programmeerproject/funda/js/json/gemiddeldes.json', function(error, json) {
-		if (error) return console.warn(error);
-		else {
-			// loop door alle objecten in het json bestand (4053 lang)
-			for (var key in json){
-				// zoek het object dat bij de huidige postcode hoort
-				if (json[key].postcode == postcode){
-					// sla de bijbehorende vraagprijs op
-					var gemiddelde_van_postcode = json[key].gemiddelde_vraagprijs;
-					return gemiddelde_van_postcode > 350000  ? '#800026' :
-				           gemiddelde_van_postcode > 300000  ? '#BD0026' :
-				           gemiddelde_van_postcode > 250000  ? '#E31A1C' :
-				           gemiddelde_van_postcode > 200000  ? '#FC4E2A' :
-				           gemiddelde_van_postcode > 150000  ? '#FD8D3C' :
-				           gemiddelde_van_postcode > 100000  ? '#FEB24C' :
-				           gemiddelde_van_postcode > 50000   ? '#FED976' :
-				                         '#808080' ;
-				}
-			}
-		}
-	})
-
-	/*return postcode > 6000  ? '#800026' :
-           postcode > 5000  ? '#BD0026' :
-           postcode > 4000  ? '#E31A1C' :
-           postcode > 3000  ? '#FC4E2A' :
-           postcode > 2000  ? '#FD8D3C' :
-           postcode > 1000  ? '#FEB24C' :
-           postcode > 0   ? '#FED976' :
-                         '#808080' ;*/
+function getColor(d) {
+    return d > 350000  ? '#800026' :
+           d > 300000  ? '#BD0026' :
+           d > 250000  ? '#E31A1C' :
+           d > 200000  ? '#FC4E2A' :
+           d > 150000  ? '#FD8D3C' :
+           d > 100000  ? '#FEB24C' :
+           d > 50000   ? '#FED976' :
+                         '#808080' ;
 }
 
-function visualiseer_gemiddeldes() {
+/*
+function style(feature,vraagprijs) {
+    return {
+        weight: 1,
+        opacity: 1,
+        //color: 'green',
+        //fillColor: getColor(vraagprijs),
+        dashArray: '1',
+        fillOpacity: 0.3
+    };
+}
+var baseLayer = L.geoJson([],{style:style}).addTo(map);
+*/
+
+function visualiseer_gemiddeldes(gemiddeldes) {
 	// loop door geojson bestanden
 	for (var i = 101; i < 1000; i++) {
 		// open bijvoorbeeld 103.json
 		d3.json('/Programmeerproject/funda/js/geojson/minified/' + i + '.json', function(geojson) {
 			// loop door alle postcodes in dat gebied (max 10)
 			for (var i = 0; i < geojson.features.length; i++) {
-				// voeg de shape van die postcode toe aan de kaart
-				L.geoJson(geojson.features[i], {
-					// specificeer de stijl die die postcode moet hebben
-					style: function(feature) {
-						return {
-							weight: 1,
-							opacity: 1,
-							// stuur de postcode mee met de functie
-							fillColor: getColor(feature.properties.postcode),
-							color: 'white',
-							dashArray: '1',
-							fillOpacity: 0.3
-						};
-					},
-					onEachFeature: function (feature, layer) {
-				        layer.bindPopup(feature.properties.postcode);
-				    }
-				}).addTo(map);
-				//console.log(gemiddeldes[key].gemiddelde_vraagprijs);				
+				
+				// loop door de postcodes met gemiddeldes
+				for (var key in gemiddeldes){
+					// als de postcode die nu wordt toegevoegd, overeenkomt met de postcode in gemiddeldes, stuur dan die vraagprijs mee
+					if (gemiddeldes[key].postcode == geojson.features[i].properties.postcode){
+						// voeg de shape van die postcode toe aan de kaart
+						L.geoJson(geojson.features[i], {
+							style: function(gemiddeldes) {
+								return {
+									weight: 1,
+									opacity: 1,
+									fillColor: getColor(350000),
+									color: 'white',
+									dashArray: '1',
+									fillOpacity: 0.3
+								};
+							},
+							onEachFeature: function (feature, layer) {
+						        layer.bindPopup(feature.properties.postcode);
+						    }
+						}).addTo(map);
+						//console.log(gemiddeldes[key].gemiddelde_vraagprijs);
+					}
+				}				
 			}
 		})
 	}
 }
 
-visualiseer_gemiddeldes();
+d3.json('/Programmeerproject/funda/js/json/gemiddeldes.json', function(error, json) {
+	if (error) return console.warn(error);
+	visualiseer_gemiddeldes(json);
+})

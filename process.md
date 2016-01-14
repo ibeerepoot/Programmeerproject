@@ -41,3 +41,10 @@ De vorm van de postcodes was wel goed, maar de plek kwam niet overeen met de ple
 Begin met berekenen vraagprijzen per postcode. Ik heb een geojson met alle appartementen bijvoorbeeld, en elk appartement heeft daar een adres, postcode en vraagprijs. Nu moet ik alle appartementen met dezelfde postcode gaan koppelen en daar het gemiddelde van berekenen. Heel inefficient om elke keer alles door de loopen op zoek naar de zelfde postcode. 
 
 Oplossen met crossfilter module?
+
+# 13 januari
+Crossfilter toch best wel lastig te begrijpen. Eerst gewoon proberen door alle postcodes heen te gaan en te kijken welke gemiddelde vraagprijs erbij hoort elke keer dat je een geojson bestand heen gaat. Eerst moet de data nog gecleaned worden. Daarna naar gemiddeldes.json geschreven zodat ik erbij kan bij het maken van de kaart. Dit gebeurt allemaal buiten de webapplicatie, want de gebruiker moet niet hoeven wachten tot alle gemiddeldes zijn uitgerekend. Dit wordt dus gedaan op hetzelfde moment als het scrapen van de data, zodat de informatie al aanwezig is wanneer een gebruiker de applicatie gebruikt. 
+
+Het bestand is gemaakt, maar moet nog worden toegepast. Elke keer dat de shapefile van het postcodegebied in de applicatie wordt getekend op de kaart, moet dus de juiste kleur worden gekozen aan de hand van de gemiddelde vraagprijs. Even zien hoe dat werkt, want nu wordt alles gewoon groen.
+
+# 14 januari
