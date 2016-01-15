@@ -48,3 +48,4 @@ Crossfilter toch best wel lastig te begrijpen. Eerst gewoon proberen door alle p
 Het bestand is gemaakt, maar moet nog worden toegepast. Elke keer dat de shapefile van het postcodegebied in de applicatie wordt getekend op de kaart, moet dus de juiste kleur worden gekozen aan de hand van de gemiddelde vraagprijs. Even zien hoe dat werkt, want nu wordt alles gewoon groen.
 
 # 14 januari
+Moeilijk om de kleur van de postcodes aan te passen. In de voorbeelden van LeafletJS staan de kenmerken namelijk in hetzelfde geojson-bestand. Bij mij staat het kenmerk dat de kleur bepaald, de vraagprijs, in een ander bestand. Ik kan dus niet gewoon het geojson-feature meesturen aan de style-functie, wat heel gemakkelijk is. Ik moet ook gemiddeldes.json uitlezen en de juiste vraagprijs opzoeken. Het lukt wel om op basis van postcodes te kleuren, dus bijvoorbeeld alle postcodes tussen 1000 en 2000 een kleur, tussen 2000 en 3000, enz.

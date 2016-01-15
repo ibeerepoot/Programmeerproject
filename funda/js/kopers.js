@@ -1,9 +1,8 @@
 function from_pie_to_map(soort) {
-	console.log("From pie to map: ", soort);
 
 	$("#pieChart").hide("slow");
 
-	$("#choro").show("slow");
+	$("#map").show("slow");
 
 	var meervoud = {Woonhuis:"woonhuizen", Appartement:"appartementen", Parkeerplaats:"parkeerplaatsen", Bouwgrond:"bouwgrond"};
 
@@ -123,39 +122,87 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
     accessToken: 'pk.eyJ1IjoiaWJlZXJlcG9vdCIsImEiOiJjaWo3Y3lqcWkwMDU2dzNtMzV0bnViM2s0In0.egPnUZiAx1Wj9B4pwZlNyQ'
 }).addTo(map);
 
-function getColor(postcode) {
-	// open het gecleande bestand met postcodes en gemiddelde vraagprijzen
-	d3.json('/Programmeerproject/funda/js/json/gemiddeldes.json', function(error, json) {
-		if (error) return console.warn(error);
-		else {
-			// loop door alle objecten in het json bestand (4053 lang)
-			for (var key in json){
-				// zoek het object dat bij de huidige postcode hoort
-				if (json[key].postcode == postcode){
-					// sla de bijbehorende vraagprijs op
-					var gemiddelde_van_postcode = json[key].gemiddelde_vraagprijs;
-					return gemiddelde_van_postcode > 350000  ? '#800026' :
-				           gemiddelde_van_postcode > 300000  ? '#BD0026' :
-				           gemiddelde_van_postcode > 250000  ? '#E31A1C' :
-				           gemiddelde_van_postcode > 200000  ? '#FC4E2A' :
-				           gemiddelde_van_postcode > 150000  ? '#FD8D3C' :
-				           gemiddelde_van_postcode > 100000  ? '#FEB24C' :
-				           gemiddelde_van_postcode > 50000   ? '#FED976' :
-				                         '#808080' ;
-				}
-			}
-		}
-	})
+var gemiddeldes;
 
-	/*return postcode > 6000  ? '#800026' :
-           postcode > 5000  ? '#BD0026' :
-           postcode > 4000  ? '#E31A1C' :
-           postcode > 3000  ? '#FC4E2A' :
-           postcode > 2000  ? '#FD8D3C' :
-           postcode > 1000  ? '#FEB24C' :
-           postcode > 0   ? '#FED976' :
-                         '#808080' ;*/
+// open het gecleande bestand met postcodes en gemiddelde vraagprijzen
+d3.json('/Programmeerproject/funda/js/json/gemiddeldes.json', function(error, json) {
+	gemiddeldes = json;
+})
+
+function getColor(postcode) {
+	// loop door alle objecten in het json bestand (4053 lang)
+	for (var key in gemiddeldes){
+		// zoek het object dat bij de huidige postcode hoort
+		if (gemiddeldes[key].postcode == postcode){
+			// sla de bijbehorende vraagprijs op
+			var gemiddelde_van_postcode = gemiddeldes[key].gemiddelde_vraagprijs;
+			
+			// console.log(gemiddelde_van_postcode);
+			return gemiddelde_van_postcode > 350000  ? '#b10026' :
+		           gemiddelde_van_postcode > 300000  ? '#e31a1c' :
+		           gemiddelde_van_postcode > 250000  ? '#fc4e2a' :
+		           gemiddelde_van_postcode > 200000  ? '#fd8d3c' :
+		           gemiddelde_van_postcode > 150000  ? '#feb24c' :
+		           gemiddelde_van_postcode > 100000  ? '#fed976' :
+		           gemiddelde_van_postcode > 50000   ? '#ffffb2' :
+		                         '#fff' ;
+		    
+		}
+	}
 }
+
+var geolayer;
+
+function highlightFeature(e) {
+    var layer = e.target;
+
+    layer.setStyle({
+        weight: 5,
+        color: '#666',
+        dashArray: '',
+        fillOpacity: 0.3
+    });
+
+    if (!L.Browser.ie && !L.Browser.opera) {
+        layer.bringToFront();
+    }
+
+    info.update(layer.feature.properties);
+}
+
+function resetHighlight(e) {
+    geolayer.resetStyle(e.target);
+    info.update();
+}
+
+function zoomToFeature(e) {
+    map.fitBounds(e.target.getBounds());
+}
+
+var info = L.control();
+
+info.onAdd = function (map) {
+    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+    this.update();
+    return this._div;
+};
+
+// method that we will use to update the control based on feature properties passed
+info.update = function (props) {
+	// loop door alle objecten in het json bestand (4053 lang)
+	for (var key in gemiddeldes){
+		// zoek het object dat bij de huidige postcode hoort
+		if (gemiddeldes[key].postcode == props.postcode){
+			// sla de bijbehorende vraagprijs op
+			var gemiddelde_van_postcode = gemiddeldes[key].gemiddelde_vraagprijs;
+		    this._div.innerHTML = '<h4>Vraagprijs per postcode</h4>' +  (props ?
+		        '<b>Postcode: ' + props.postcode + '</b><br />Gemiddelde vraagprijs: ' + gemiddelde_van_postcode 
+		        : 'Beweeg over een postcode');
+		}
+	}
+};
+
+info.addTo(map);
 
 function visualiseer_gemiddeldes() {
 	// loop door geojson bestanden
@@ -165,7 +212,7 @@ function visualiseer_gemiddeldes() {
 			// loop door alle postcodes in dat gebied (max 10)
 			for (var i = 0; i < geojson.features.length; i++) {
 				// voeg de shape van die postcode toe aan de kaart
-				L.geoJson(geojson.features[i], {
+				geolayer = L.geoJson(geojson.features[i], {
 					// specificeer de stijl die die postcode moet hebben
 					style: function(feature) {
 						return {
@@ -175,17 +222,40 @@ function visualiseer_gemiddeldes() {
 							fillColor: getColor(feature.properties.postcode),
 							color: 'white',
 							dashArray: '1',
-							fillOpacity: 0.3
+							fillOpacity: 0.5
 						};
 					},
 					onEachFeature: function (feature, layer) {
-				        layer.bindPopup(feature.properties.postcode);
+				        layer.on({
+				        	mouseover: highlightFeature,
+				        	mouseout: resetHighlight,
+				        	click: zoomToFeature
+				        })
 				    }
-				}).addTo(map);
-				//console.log(gemiddeldes[key].gemiddelde_vraagprijs);				
+				}).addTo(map);				
 			}
 		})
 	}
 }
 
 visualiseer_gemiddeldes();
+
+var legend = L.control({position: 'bottomright'});
+
+legend.onAdd = function (map) {
+
+    var div = L.DomUtil.create('div', 'info legend'),
+        grades = [0, 50000, 100000, 150000, 200000, 250000, 300000, 350000],
+        labels = [];
+
+    // loop through our density intervals and generate a label with a colored square for each interval
+    for (var i = 0; i < grades.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+    }
+
+    return div;
+};
+
+legend.addTo(map);
