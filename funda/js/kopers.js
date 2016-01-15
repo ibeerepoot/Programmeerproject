@@ -10,7 +10,7 @@ function from_pie_to_map(soort) {
 	var soort_bezit = soort.toLowerCase();
 
 	console.log(soort);
-	$("#kopers-stap-1").html("Je bent op zoek naar een " + soort_bezit + ".<br>In onderstaande kaart is de gemiddelde vraagprijs van " + meervoud[soort] + " per 4-cijferige postcode in beeld gebracht.");
+	$("#kopers-stap-1").html("Je bent op zoek naar een " + soort_bezit + ".<br>In onderstaande kaart is de gemiddelde vraagprijs van " + meervoud[soort] + " per 4-cijferige postcode in beeld gebracht.<br>");
 
 }
 
@@ -113,7 +113,7 @@ d3.json("js/json/aanbod.json", function(error,json) {
 http://leafletjs.com/examples/choropleth.html
 */
 
-var map = L.map('map').setView([52.3167, 5.55], 7);
+var map = L.map('map').setView([52.3167, 5.55], 8);
 
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
 	minZoom: 7,
@@ -195,9 +195,9 @@ info.update = function (props) {
 		if (gemiddeldes[key].postcode == props.postcode){
 			// sla de bijbehorende vraagprijs op
 			var gemiddelde_van_postcode = gemiddeldes[key].gemiddelde_vraagprijs;
-		    this._div.innerHTML = '<h4>Vraagprijs per postcode</h4>' +  (props ?
+		    this._div.innerHTML = '<h4>Vraagprijs per postcode</h4>' +  (gemiddeldes[key].gemiddelde_vraagprijs ?
 		        '<b>Postcode: ' + props.postcode + '</b><br />Gemiddelde vraagprijs: ' + gemiddelde_van_postcode 
-		        : 'Beweeg over een postcode');
+		        : 'Beweeg over een gekleurde postcode');
 		}
 	}
 };
@@ -220,7 +220,7 @@ function visualiseer_gemiddeldes() {
 							opacity: 1,
 							// stuur de postcode mee met de functie
 							fillColor: getColor(feature.properties.postcode),
-							color: 'white',
+							color: '#ababab',
 							dashArray: '1',
 							fillOpacity: 0.5
 						};

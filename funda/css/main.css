@@ -73,8 +73,8 @@
   }
 
   #map {
-    height: 600px;
-    visibility: hidden;
+    height: 700px;
+    display: none;
   }
 
   .info {
