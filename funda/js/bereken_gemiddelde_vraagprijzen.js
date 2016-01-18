@@ -7,19 +7,19 @@ var postcodes = ['1011','1012','1013','1014','1015','1016','1017','1018','1019',
 var gemiddeldes = [];
 
 // maak eerst de array, gebruik hem pas als die gevuld is
-function maak_array() {
-	var file = 'json/vraagprijzen_appartement.json';
+function maak_array(soort) {
+	var file = 'json/vraagprijzen_' + soort + '.json';
 	var huizen_array = [];
 
 	return new Promise(function(resolve,  reject) {
 		jsonfile.readFile(file, function(error, huizen) {
-			// loop door alle huizen in het json bestand
 			if(error) {
 				reject(error);
 			}
 			else {
 				// loop door alle huizen in json
 				huizen.forEach(function(huis) {
+					// heeft geen zin om huizen met prijs op aanvraag te laten zien
 					if (huis.vraagprijs != "Prijs op aanvraag") {
 						// push object naar array en clean de waardes whle you're at it
 						huizen_array.push({postcode:huis.postcode.replace(/\s/g,'').substring(0,4),vraagprijs:huis.vraagprijs.replace(/€\s/g,'').replace(/\sk.k./g,'').replace(/\./g,'').replace(/\svon/g,'')});
@@ -31,30 +31,59 @@ function maak_array() {
 	})
 }
 
-function gebruik_array(huizen) {
+function gebruik_array(huizen,soort) {
 	var vraagprijzen_som = 0;
 	var num_in_postcode = 0;
 
+	// loop door de array met alle mogelijke postcodes: 1011, 1012, 1013 enz.
 	postcodes.forEach(function(postcode){
+		// loop ook door alle huisobjecten in de huizen array
 		huizen.forEach(function(huis) {
+			// als de postcode van het huis overeenkomt met een mogelijke postcode
 			if (huis.postcode == postcode) {
+				// voeg de vraagprijs van het huis dan toe aan de som
 				vraagprijzen_som += parseInt(huis.vraagprijs);
+				// increment de counter van huizen in die postcode
 				num_in_postcode++;
 			}
 		})
-		var gemiddeld = Math.round(vraagprijzen_som / num_in_postcode);
-		gemiddeldes.push({postcode:postcode,gemiddelde_vraagprijs:gemiddeld});
+		// als er geen huizen in dat gebied te koop staan is de som van vraagprijzen nul
+		if (vraagprijzen_som == 0) {
+			gemiddeldes.push({postcode:postcode,gemiddelde_vraagprijs:"niet bekend"});
+		}
+		else {
+			// bereken de gemiddelde vraagprijs in die postcode
+			var gemiddeld = Math.round(vraagprijzen_som / num_in_postcode);
+			// push de postcode en gemiddelde vraagprijs naar de array
+			gemiddeldes.push({postcode:postcode,gemiddelde_vraagprijs:gemiddeld});
+		}
 
+		// zet de som en counter weer op nul
 		vraagprijzen_som = 0;
 		num_in_postcode = 0;
 	})	
 
-	console.log(gemiddeldes);
-	jsonfile.writeFile('json/gemiddeldes.json',gemiddeldes);
+	jsonfile.writeFile('json/gemiddeldes_' + soort + '.json',gemiddeldes);
 }
 
-maak_array().then(function(huizen) {
-	gebruik_array(huizen);
+// maak de jsons met gemiddeldes
+maak_array('appartement').then(function(huizen) {
+	gebruik_array(huizen,'appartement');
+}, function(err) {
+	console.error(err);
+})
+maak_array('bouwgrond').then(function(huizen) {
+	gebruik_array(huizen,'bouwgrond');
+}, function(err) {
+	console.error(err);
+})
+maak_array('parkeergelegenheid').then(function(huizen) {
+	gebruik_array(huizen,'parkeergelegenheid');
+}, function(err) {
+	console.error(err);
+})
+maak_array('woonhuis').then(function(huizen) {
+	gebruik_array(huizen,'woonhuis');
 }, function(err) {
 	console.error(err);
 })

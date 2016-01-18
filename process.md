@@ -49,3 +49,14 @@ Het bestand is gemaakt, maar moet nog worden toegepast. Elke keer dat de shapefi
 
 # 14 januari
 Moeilijk om de kleur van de postcodes aan te passen. In de voorbeelden van LeafletJS staan de kenmerken namelijk in hetzelfde geojson-bestand. Bij mij staat het kenmerk dat de kleur bepaald, de vraagprijs, in een ander bestand. Ik kan dus niet gewoon het geojson-feature meesturen aan de style-functie, wat heel gemakkelijk is. Ik moet ook gemiddeldes.json uitlezen en de juiste vraagprijs opzoeken. Het lukt wel om op basis van postcodes te kleuren, dus bijvoorbeeld alle postcodes tussen 1000 en 2000 een kleur, tussen 2000 en 3000, enz.
+
+# 15 januari
+Gelukt om de juiste kleuren te krijgen! Kaart krijgt nu mooi vorm. Nu alleen nog met appartementen.
+
+# 17 januari
+Bezig de kaart ook te kleuren bij de andere vormen, dus als je op woonhuis klikt moet de kaart gekleurd worden op basis van woonhuizen. Er zit nu een grijze overlay voor de kaart, die weggaat wanneer je ´element inspecteren´ doet. Raar. Ook worden sommige gebieden niet direct gekleurd, maar zijn de grijs totdat je er met je muis overheen gaat.
+
+Andere huissoorten nu in de kaart gezet, maar de gebieden kleuren niet goed meer. De juiste vraagprijs wordt nog wel goed weergegeven in de tooltip, maar er zijn slechts enkele gebieden gekleurd, en dan ook nog heel licht terwijl het donkerder zou moeten zijn. Legenda klopt nu wel.
+
+# 18 januari
+Bij parkeerplaatsen slaan de kleuren natuurlijk nergens op. Zijn meestal maar een paar duizend euro, dus bijna allemaal tussen 0 en 50000. Beter weglaten? Is toch niet zo interessant, en bovendien kun je niet echt spreken van een 'huis'.

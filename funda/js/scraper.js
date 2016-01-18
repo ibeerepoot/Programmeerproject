@@ -18,14 +18,14 @@ function soort_aanbod_koop(){
 Vraagprijzen huizen op postcode
 */
 
-function vraagprijzen(soort,limit) {
-	x('http://www.funda.nl/koop/heel-nederland/' + soort + '/', '.search-results li', [{
+function vraagprijzen(soort,vanPagina,totPagina) {
+	x('http://www.funda.nl/koop/heel-nederland/' + soort + '/p' + vanPagina , '.search-results li', [{
 		adres: '.search-result-title',
 		postcode: '.search-result-subtitle',
 		vraagprijs: '.search-result-price',
 	}])
 		.paginate('a[title="Volgende pagina"]@href')
-		.limit(limit)
+		.limit(totPagina)
 		.write('json/vraagprijzen_' + soort + '.json')
 }
 
@@ -33,26 +33,32 @@ function vraagprijzen(soort,limit) {
 Vraagprijzen verkochte huizen op postcode
 */
 
-function verkocht(soort,limit) {
-	x('http://www.funda.nl/koop/verkocht/heel-nederland/' + soort + '/', '.object-list li', [{
+function verkocht(soort,vanm2,totm2) {
+	x('http://www.funda.nl/koop/verkocht/heel-nederland/' + vanm2 + '-' + totm2 + '-woonopp/' + soort + '/', '.object-list li', [{
 		adres: 'a.object-street',
+		postcode: '.properties-list:nth-of-type(1)',
 		vraagprijs: '.price',
 		link: 'a.object-street@href',
-		details: x('a.object-street@href', '.transaction-data', {
-			aangeboden_sinds: '.transaction-date:nth-of-type(1) strong',
-			looptijd: '.transaction-date:nth-of-type(2) strong',
-			verkoopdatum: '.transaction-date:nth-of-type(3) strong',
-		})
+		details: x('a.object-street@href', '.transaction-data'),
 	}])
 		.paginate('.next@href')	
-  		.limit(limit)
-		.write('json/verkocht.json')
+  		//.limit(limit)
+		.write('json/verkocht_' + soort + vanm2 + totm2 + '.json')
 }
 
 // soort_aanbod_koop();
-// vraagprijzen('parkeerplaats',95);
-// vraagprijzen('bouwgrond',372);
-vraagprijzen('appartement',3136);
-// vraagprijzen('woonhuis',9500);
+//vraagprijzen('parkeergelegenheid',93);
+//vraagprijzen('bouwgrond',371);
+//vraagprijzen('appartement',1,500);
+//vraagprijzen('woonhuis',9433);
 
-// verkocht('appartement',);
+//verkocht('appartement',0,50);
+//verkocht('appartement',50,80);
+//verkocht('appartement',80,90);
+//verkocht('appartement',90,100);
+//verkocht('woonhuis',0,50);
+//verkocht('woonhuis',50,80);
+//verkocht('woonhuis',80,90);
+//verkocht('woonhuis',90,100);
+verkocht('woonhuis',100,110);
+//verkocht('bouwgrond',0,100000);

@@ -77,13 +77,13 @@
                     <div class="clients text-center wow fadeInUp" data-wow-duration="500ms" data-wow-delay="300ms">
                         <h1 class="title">Verkopers</h1>
                         <p id="verkopers-stap-1">Wil je gaan verkopen? <br> Kies hier het type bezit dat je wilt verkopen. </p>
-                        <p id="verkopers-stap-2">Vul een postcode in en je krijgt een overzicht van de huizen die te koop hebben gestaan op deze postcode. </p>
+                        <p id="verkopers-stap-2">Vul een postcode in, kies een woonoppervlakte,<br> en je krijgt een overzicht van de huizen die te koop hebben gestaan op deze postcode. </p>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div id="icoontjes">
-                    <div id="verkopers-woonhuis" class="col-sm-3 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
+                    <div id="verkopers-woonhuis" class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
                         <div class="verkoop single-service" onclick="verkooptabel('woonhuis')">
                             <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
                                 <img src="images/icons/home78.png" alt="">
@@ -91,7 +91,7 @@
                             <h2>Woonhuis</h2>
                         </div>
                     </div>
-                    <div id="verkopers-appartement" class="col-sm-3 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
+                    <div id="verkopers-appartement" class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
                         <div class="verkoop single-service" onclick="verkooptabel('appartement')">
                             <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="600ms">
                                 <img src="images/icons/building166 (2).png" alt="">
@@ -99,15 +99,7 @@
                             <h2>Appartement</h2>
                         </div>
                     </div>
-                    <div id="verkopers-parkeerplaats" class="col-sm-3 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="900ms">
-                        <div class="verkoop single-service" onclick="verkooptabel('parkeerplaats')">
-                            <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="900ms">
-                                <img src="images/icons/parking12 (3).png" alt="">
-                            </div>
-                            <h2>Parkeerplaats</h2>
-                        </div>
-                    </div>
-                    <div id="verkopers-bouwgrond" class="col-sm-3 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
+                    <div id="verkopers-bouwgrond" class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
                         <div class="verkoop single-service" onclick="verkooptabel('bouwgrond')">
                             <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="1200ms">
                                 <img src="images/icons/worker5.png" alt="">
@@ -118,10 +110,28 @@
                 </div>
                 <div id="verkoopinfo" class="col-sm-12">
                     <div class="form-group">
-                      <label for="usr">Postcode:</label>
-                      <input type="text" class="form-control" id="usr">
+                      <label for="zoekPostcode">Postcode:</label>
+                      <input type="text" class="form-control" id="zoekPostcode" placeholder="Bijv: 1624">
+                      <br>
+                      <br>
+                      <label for="zoekPostcode">Woonoppervlakte:</label>
+                      <div class="radio">
+                        <label><input type="radio" name="optradio" value="050">0m2 tot 50m2</label>
+                      </div>
+                      <div class="radio">
+                        <label><input type="radio" name="optradio" value="5080">50m2 tot 80m2</label>
+                      </div>
+                      <div class="radio">
+                        <label><input type="radio" name="optradio" value="8090" checked>80m2 tot 90m2</label>
+                      </div>
+                      <div class="radio">
+                        <label><input type="radio" name="optradio" value="90100">90m2 tot 100m2</label>
+                      </div>
+                      <br>
+                      <input type="button" class="btn btn-common" onclick="maakTabel()" value="Zoek">
                     </div>
-                    <img src="images/weken.png">
+                    <div id="results">
+                    </div>
                 </div>
             </div>
         </div>
