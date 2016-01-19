@@ -2,6 +2,8 @@ function from_pie_to_map(soort) {
 
 	$("#pieChart").hide("slow");
 
+	$(".radio-list").show("slow");
+
 	$("#map").show("slow");
 
 	var meervoud = {woonhuis:"woonhuizen", appartement:"appartementen", parkeerplaats:"parkeerplaatsen", bouwgrond:"bouwgrond"};
@@ -22,12 +24,12 @@ gebruikt: https://scaleyourcode.com/blog/article/9
 d3.json("js/json/aanbod.json", function(error,json) {
 
 	var data = [];
-	var colours = ["#2F4A55","#006C7D","#86D3E3"];
+	var colours = ["#006C7D","#009AAE","#86D3E3","#2F4A55"];
 
 	if (error) return console.warn(error);
 	json.forEach(function(type, i) {
-		// parkeerplaatsen niet zo interessant
-		if (i != 2){
+		// parkeerplaatsen en bouwgrond misschien toch niet zo interessant
+		if (i != 2 && i != 3){
 			data.push({
 				label: type.soort.replace(/\s/g,'').split(/[0-9]/)[0],
 				value: parseInt(type.aantal.replace(/\s/g,'')*1000),

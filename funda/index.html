@@ -62,6 +62,20 @@
                         <p id="kopers-stap-2"></p>
                         <div id="pieChart" class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms"></div>
                         <div id="map" class="col-sm-12"></div>
+                        <div class="radio-list">
+                            <label>Woonoppervlakte:</label>
+                            <br>
+                            <label class="radio-inline"><input type="radio" name="optradio">0-50m2</label>
+                            <label class="radio-inline"><input type="radio" name="optradio">50-80m2</label>
+                            <label class="radio-inline"><input type="radio" name="optradio">80-90m2</label>
+                            <label class="radio-inline"><input type="radio" name="optradio" checked>90-100m2</label>
+                            <label class="radio-inline"><input type="radio" name="optradio">100-110m2</label>
+                            <label class="radio-inline"><input type="radio" name="optradio">110-120m2</label>
+                            <label class="radio-inline"><input type="radio" name="optradio">120-130m2</label>
+                            <label class="radio-inline"><input type="radio" name="optradio">130-140m2</label>
+                            <label class="radio-inline"><input type="radio" name="optradio">140-160m2</label>
+                            <label class="radio-inline"><input type="radio" name="optradio">160+m2</label>
+                        </div>
                     </div>
                     
                 </div>
@@ -83,7 +97,7 @@
             </div>
             <div class="row">
                 <div id="icoontjes">
-                    <div id="verkopers-woonhuis" class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
+                    <div id="verkopers-woonhuis" class="col-sm-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
                         <div class="verkoop single-service" onclick="verkooptabel('woonhuis')">
                             <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms">
                                 <img src="images/icons/home78.png" alt="">
@@ -91,7 +105,7 @@
                             <h2>Woonhuis</h2>
                         </div>
                     </div>
-                    <div id="verkopers-appartement" class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
+                    <div id="verkopers-appartement" class="col-sm-6 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
                         <div class="verkoop single-service" onclick="verkooptabel('appartement')">
                             <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="600ms">
                                 <img src="images/icons/building166 (2).png" alt="">
@@ -99,6 +113,8 @@
                             <h2>Appartement</h2>
                         </div>
                     </div>
+                    <!--
+                    Bouwgrond toch maar niet?
                     <div id="verkopers-bouwgrond" class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
                         <div class="verkoop single-service" onclick="verkooptabel('bouwgrond')">
                             <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="1200ms">
@@ -106,7 +122,7 @@
                             </div>
                             <h2>Bouwgrond</h2>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
                 <div id="verkoopinfo" class="col-sm-12">
                     <div class="form-group">
@@ -114,20 +130,40 @@
                       <input type="text" class="form-control" id="zoekPostcode" placeholder="Bijv: 1624">
                       <br>
                       <br>
-                      <label for="zoekPostcode">Woonoppervlakte:</label>
-                      <div class="radio">
-                        <label><input type="radio" name="optradio" value="050">0m2 tot 50m2</label>
+                      <div class="radio-list">
+                          <label for="zoekPostcode">Woonoppervlakte:</label>
+                          <div class="radio">
+                            <label><input type="radio" name="optradio" value="050">0m2 tot 50m2</label>
+                          </div>
+                          <div class="radio">
+                            <label><input type="radio" name="optradio" value="5080">50m2 tot 80m2</label>
+                          </div>
+                          <div class="radio">
+                            <label><input type="radio" name="optradio" value="8090" checked>80m2 tot 90m2</label>
+                          </div>
+                          <div class="radio">
+                            <label><input type="radio" name="optradio" value="90100">90m2 tot 100m2</label>
+                          </div>
+                          <div class="radio">
+                            <label><input type="radio" name="optradio" value="100110">100m2 tot 110m2</label>
+                          </div>
+                          <div class="radio">
+                            <label><input type="radio" name="optradio" value="110120">110m2 tot 120m2</label>
+                          </div>
+                          <div class="radio">
+                            <label><input type="radio" name="optradio" value="120130">120m2 tot 130m2</label>
+                          </div>
+                          <div class="radio">
+                            <label><input type="radio" name="optradio" value="130140">130m2 tot 140m2</label>
+                          </div>
+                          <div class="radio">
+                            <label><input type="radio" name="optradio" value="140160">140m2 tot 160m2</label>
+                          </div>
+                          <div class="radio">
+                            <label><input type="radio" name="optradio" value="1605000">160+m2</label>
+                          </div>
+                          <br>
                       </div>
-                      <div class="radio">
-                        <label><input type="radio" name="optradio" value="5080">50m2 tot 80m2</label>
-                      </div>
-                      <div class="radio">
-                        <label><input type="radio" name="optradio" value="8090" checked>80m2 tot 90m2</label>
-                      </div>
-                      <div class="radio">
-                        <label><input type="radio" name="optradio" value="90100">90m2 tot 100m2</label>
-                      </div>
-                      <br>
                       <input type="button" class="btn btn-common" onclick="maakTabel()" value="Zoek">
                     </div>
                     <div id="results">

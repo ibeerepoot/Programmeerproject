@@ -39,11 +39,11 @@ function verkocht(soort,vanm2,totm2) {
 		postcode: '.properties-list:nth-of-type(1)',
 		vraagprijs: '.price',
 		link: 'a.object-street@href',
-		details: x('a.object-street@href', '.transaction-data'),
+		details: x('a.object-street@href', '.transaction-date'),
 	}])
 		.paginate('.next@href')	
   		//.limit(limit)
-		.write('json/verkocht_' + soort + vanm2 + totm2 + '.json')
+		.write('json/verkocht/' + soort + '/' + soort + vanm2 + totm2 + '.json')
 }
 
 // soort_aanbod_koop();
@@ -56,9 +56,20 @@ function verkocht(soort,vanm2,totm2) {
 //verkocht('appartement',50,80);
 //verkocht('appartement',80,90);
 //verkocht('appartement',90,100);
+//verkocht('appartement',100,110);
+//verkocht('appartement',110,120);
+//verkocht('appartement',120,130);
+//verkocht('appartement',130,140);
+//verkocht('appartement',140,160);
+verkocht('appartement',160,5000);
 //verkocht('woonhuis',0,50);
 //verkocht('woonhuis',50,80);
 //verkocht('woonhuis',80,90);
 //verkocht('woonhuis',90,100);
-verkocht('woonhuis',100,110);
-//verkocht('bouwgrond',0,100000);
+//verkocht('woonhuis',100,110);
+//verkocht('woonhuis',110,120);
+//verkocht('woonhuis',120,130);
+//verkocht('woonhuis',130,140);
+//verkocht('woonhuis',140,160);
+//verkocht('woonhuis',160,5000);
+//verkocht('bouwgrond');

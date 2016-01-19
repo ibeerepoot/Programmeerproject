@@ -9,6 +9,11 @@ function verkooptabel(soort_verkoop) {
 function maakTabel(){
 	// get de value van het input field dat de gebruiker heeft ingevuld met een postcode
 	var zoekPostcode = document.getElementById('zoekPostcode').value;
+
+	if (zoekPostcode == null || zoekPostcode == ""){
+		alert("Er moet een postcode worden ingevuld");
+	}
+
 	// get het soort dat de gebruiker wil verkopen, en maak de tabel op basis daarvan
 	var soort_verkoop = document.getElementById('zoekPostcode').className.split(" ")[1];
 
@@ -16,9 +21,10 @@ function maakTabel(){
 
 	var woonopp = "";
 
+	// laat de gebruiker bij appartementen en woonhuizen de woonoppervlakte kiezen
 	for (var i = 0, length = radios.length; i < length; i++) {
 	    if (radios[i].checked) {
-			// set radio value als woonopp
+			// set radio value als woonoppervlak
 	        woonopp = radios[i].value;
 	        break;
 	    }
@@ -26,14 +32,20 @@ function maakTabel(){
 
 	document.getElementById('results').innerHTML += "<br><br><b>Huizen met woonoppervlakte " + woonopp + " in postcode " + zoekPostcode + ":</b><br>";
 
-	d3.json("js/json/verkocht/" + soort_verkoop + "/verkocht_" + soort_verkoop + woonopp + ".json", function(error,json) {
+	d3.json("js/json/verkocht/" + soort_verkoop + "/" + soort_verkoop + woonopp + ".json", function(error,json) {
 		if (error) return console.warn(error);
+		var counter = 0;
 		json.forEach(function(verkochtHuis){
 			//console.log(verkochtHuis);
 			var postcodeVanHuis = verkochtHuis.postcode.replace(/\s/g,'').substring(0,4);
 			if (postcodeVanHuis == zoekPostcode) {
 				document.getElementById('results').innerHTML += '<br>' + verkochtHuis.adres + ', ' + verkochtHuis.vraagprijs + ', ' + verkochtHuis.link;
+				counter++;
 			}
 		})
+		console.log(counter);
+		if (counter == 0){
+			document.getElementById('results').innerHTML += '<br>Sorry, op deze postcode hebben geen huizen te koop gestaan met de gekozen woonoppervlakte. Het lijkt erop dat je de eerste bent die dit type huis hier probeert te verkopen!'
+		}
 	})
 }
