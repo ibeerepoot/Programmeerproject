@@ -60,3 +60,9 @@ Andere huissoorten nu in de kaart gezet, maar de gebieden kleuren niet goed meer
 
 # 18 januari
 Bij parkeerplaatsen slaan de kleuren natuurlijk nergens op. Zijn meestal maar een paar duizend euro, dus bijna allemaal tussen 0 en 50000. Beter weglaten? Is toch niet zo interessant, en bovendien kun je niet echt spreken van een 'huis'.
+
+# 19 januari
+Parkeerplaatsen en bouwgrond weggehaald. Misschien best interessant, maar door het verschil in niveaus van vraagprijzen e.d. kost het veel tijd. Beter meer functionaliteit bieden voor appartementen en woonhuizen. https://github.com/emeeks/d3.layout.timeline lijkt me mooi voor infotabel verkopers. 
+
+# 20 januari
+Kaartje weer in orde gekregen. Ging niet goed bij berekenen gemiddelde vraagprijzen. Postcodes kwamen meerdere keren voor. Nu een object gemaakt met postcode als key en vraagprijs als value. Hoef ik ook niet meer door alles heen te loopen om de juiste vraagprijs bij de postcode te vinden. 
