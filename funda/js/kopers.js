@@ -1,10 +1,10 @@
 function from_pie_to_map(soort) {
 
-	$("#pieChart").hide("slow");
+	$("#pieChart").hide();
 
-	$(".radio-list").show("slow");
+	$(".radio-list").show();
 
-	$("#map").show("slow");
+	$("#map").show();
 
 	var meervoud = {woonhuis:"woonhuizen", appartement:"appartementen", parkeerplaats:"parkeerplaatsen", bouwgrond:"bouwgrond"};
 
@@ -133,40 +133,43 @@ function createMap(soort){
 	// open het gecleande bestand met postcodes en gemiddelde vraagprijzen
 	d3.json('/Programmeerproject/funda/js/json/gemiddeldes_' + soort + '.json', function(error, json) {
 		gemiddeldes = json;
+		visualiseer_gemiddeldes();
 	})
 
 	function getColor(postcode) {
-		// loop door alle objecten in het json bestand (4053 lang)
-		for (var key in gemiddeldes){
-			// zoek het object dat bij de huidige postcode hoort
-			if (gemiddeldes[key].postcode == postcode){
-				// sla de bijbehorende vraagprijs op
-				var gemiddelde_van_postcode = gemiddeldes[key].gemiddelde_vraagprijs;
-				//console.log(gemiddelde_van_postcode);
-				return gemiddelde_van_postcode > 400000  ? '#7f0000' :
-					   gemiddelde_van_postcode > 350000  ? '#b30000' :
-			           gemiddelde_van_postcode > 300000  ? '#d7301f' :
-			           gemiddelde_van_postcode > 250000  ? '#ef6548' :
-			           gemiddelde_van_postcode > 200000  ? '#fc8d59' :
-			           gemiddelde_van_postcode > 150000  ? '#fdbb84' :
-			           gemiddelde_van_postcode > 100000  ? '#fdd49e' :
-			           gemiddelde_van_postcode > 50000   ? '#fee8c8' :
-			           gemiddelde_van_postcode > 0   	 ? '#fff7ec' :
-			                         '#fff' ;
-			}
-		}
+		var gemiddelde_van_postcode = gemiddeldes[postcode];
+		return gemiddelde_van_postcode > 2000000 ? '#7f0000' :
+			   gemiddelde_van_postcode > 1000000 ? '#990000' :
+			   gemiddelde_van_postcode > 700000  ? '#b30000' :
+			   gemiddelde_van_postcode > 500000  ? '#c51810' :
+			   gemiddelde_van_postcode > 450000  ? '#d7301f' :
+			   gemiddelde_van_postcode > 400000  ? '#e34b34' :
+			   gemiddelde_van_postcode > 350000  ? '#ef6548' :
+			   gemiddelde_van_postcode > 300000	 ? '#f67950' :
+			   gemiddelde_van_postcode > 250000  ? '#fc8d59' :
+			   gemiddelde_van_postcode > 200000  ? '#fca46e' :
+			   gemiddelde_van_postcode > 150000  ? '#fdbb84' :
+			   gemiddelde_van_postcode > 100000  ? '#fdc891' :
+			   gemiddelde_van_postcode > 50000  ? '#fdd49e' :
+			   gemiddelde_van_postcode > 0  ? '#fddeb3' :
+			         '#fff' ;
 	}
 
 	function getSquareColor(niveau) {
-	    return niveau > 400000  ? '#7f0000' :
-			   niveau > 350000  ? '#b30000' :
-			   niveau > 300000  ? '#d7301f' :
-			   niveau > 250000  ? '#ef6548' :
-			   niveau > 200000  ? '#fc8d59' :
+	    return niveau > 2000000 ? '#7f0000' :
+			   niveau > 1000000 ? '#990000' :
+			   niveau > 700000  ? '#b30000' :
+			   niveau > 500000  ? '#c51810' :
+			   niveau > 450000  ? '#d7301f' :
+			   niveau > 400000  ? '#e34b34' :
+			   niveau > 350000  ? '#ef6548' :
+			   niveau > 300000	? '#f67950' :
+			   niveau > 250000  ? '#fc8d59' :
+			   niveau > 200000  ? '#fca46e' :
 			   niveau > 150000  ? '#fdbb84' :
-			   niveau > 100000  ? '#fdd49e' :
-			   niveau > 50000   ? '#fee8c8' :
-			   niveau > 0   	? '#fff7ec' :
+			   niveau > 100000  ? '#fdc891' :
+			   niveau > 50000   ? '#fdd49e' :
+			   niveau > 0       ? '#fddeb3' :
 			                '#fff' ;
 	}
 
@@ -185,8 +188,8 @@ function createMap(soort){
 	    if (!L.Browser.ie && !L.Browser.opera) {
 	        layer.bringToFront();
 	    }
-
 	    info.update(layer.feature.properties);
+
 	}
 
 	function resetHighlight(e) {
@@ -202,22 +205,16 @@ function createMap(soort){
 
 	info.onAdd = function (map) {
 	    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
-	    this.update();
 	    return this._div;
 	};
 
 	// method that we will use to update the control based on feature properties passed
 	info.update = function (props) {
-		// loop door alle objecten in het json bestand (4053 lang)
-		for (var key in gemiddeldes){
-			// zoek het object dat bij de huidige postcode hoort
-			if (gemiddeldes[key].postcode == props.postcode){
-				// sla de bijbehorende vraagprijs op
-				var gemiddelde_van_postcode = gemiddeldes[key].gemiddelde_vraagprijs;
-			    this._div.innerHTML = '<h4>Vraagprijs per postcode</h4>' +  (gemiddeldes[key].gemiddelde_vraagprijs != "niet bekend" ?
-			        '<b>Postcode: ' + props.postcode + '</b><br />Gemiddelde vraagprijs: ' + gemiddelde_van_postcode 
-			        : 'Beweeg over een gekleurde postcode');
-			}
+		if(props) {
+			var gemiddelde_van_postcode = gemiddeldes[props.postcode];
+			this._div.innerHTML = '<h4>Vraagprijs per postcode</h4>' +  (gemiddelde_van_postcode != "niet bekend" ?
+				        '<b>Postcode: ' + props.postcode + '</b><br />Gemiddelde vraagprijs: ' + gemiddelde_van_postcode 
+				        : 'Beweeg over een gekleurde postcode');			
 		}
 	};
 
@@ -257,14 +254,14 @@ function createMap(soort){
 		}
 	}
 
-	visualiseer_gemiddeldes();
+	
 
 	var legend = L.control({position: 'bottomright'});
 
 	legend.onAdd = function (map) {
 
 	    var div = L.DomUtil.create('div', 'info legend'),
-	        grades = [0, 50000, 100000, 150000, 200000, 250000, 300000, 350000, 400000],
+	        grades = [0, 50000, 100000, 150000, 200000, 250000, 300000, 350000, 400000, 450000, 500000, 700000, 1000000, 2000000],
 	        labels = [];
 
 	    // loop through our density intervals and generate a label with a colored square for each interval
@@ -277,21 +274,5 @@ function createMap(soort){
 	};
 
 	legend.addTo(map);
-
-	var spoorvakkenStyle = {
-	    "color": "#000",
-	    "weight": 5,
-	    "opacity": 0.65
-	};
-
-	var spoorvakkenLaag = L.geoJson([], {style:spoorvakkenStyle}).addTo(map);
-
-	// open geojson met spoorvakken
-	d3.json('/Programmeerproject/funda/js/json/spoorvakken.json', function(spoorvakken) {
-		// loop door alle features in de featureCollection
-		for (var i = 0; i < spoorvakken.features.length; i++) {
-			spoorvakkenLaag.addData(spoorvakken.features[i]);
-		}
-	})
 }
 
