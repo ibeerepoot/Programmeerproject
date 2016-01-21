@@ -14,6 +14,7 @@
 	<link href="css/main.css" rel="stylesheet">
 	<link href="css/responsive.css" rel="stylesheet">
 	<script src="d3/d3.min.js" charset="utf-8"></script>
+    <script src="js/d3.layout.timeline.js" charset="utf-8" type="text/javascript"></script>
 	<script type="text/javascript" src="js/scripts.js"></script>
     <script type="text/javascript" src="js/d3pie.min.js"></script>
     <script type="text/javascript" src="js/verkopers.js"></script>
@@ -62,20 +63,6 @@
                         <p id="kopers-stap-2"></p>
                         <div id="pieChart" class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="300ms"></div>
                         <div id="map" class="col-sm-12"></div>
-                        <div class="radio-list">
-                            <label>Woonoppervlakte:</label>
-                            <br>
-                            <label class="radio-inline"><input type="radio" name="optradio">0-50m2</label>
-                            <label class="radio-inline"><input type="radio" name="optradio">50-80m2</label>
-                            <label class="radio-inline"><input type="radio" name="optradio">80-90m2</label>
-                            <label class="radio-inline"><input type="radio" name="optradio" checked>90-100m2</label>
-                            <label class="radio-inline"><input type="radio" name="optradio">100-110m2</label>
-                            <label class="radio-inline"><input type="radio" name="optradio">110-120m2</label>
-                            <label class="radio-inline"><input type="radio" name="optradio">120-130m2</label>
-                            <label class="radio-inline"><input type="radio" name="optradio">130-140m2</label>
-                            <label class="radio-inline"><input type="radio" name="optradio">140-160m2</label>
-                            <label class="radio-inline"><input type="radio" name="optradio">160+m2</label>
-                        </div>
                     </div>
                     
                 </div>
@@ -167,6 +154,10 @@
                       <input type="button" class="btn btn-common" onclick="maakTabel()" value="Zoek">
                     </div>
                     <div id="results">
+                    </div>
+                    <div id="viz">
+                      <svg style="background:white;" height=400 width=400>
+                      </svg>
                     </div>
                 </div>
             </div>
