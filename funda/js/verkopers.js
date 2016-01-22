@@ -51,35 +51,46 @@ function maakTabel(){
   		.size([300,300]);
 
   	//d3.json("js/json/verkocht/" + soort_verkoop + "/" + soort_verkoop + woonopp + ".json", function(error,json) {
-  	d3.json("js/json/verkocht/woonhuis/woonhuis050.json", function(error,json) {
+  	d3.json("js/json/verkocht/woonhuis/woonhuis050_herschreven.json", function(error,json) {
   		if(error) return console.warn(error);
 
   		var data = [];
+  		var nummerinloop = 0;
 
   		json.forEach(function(verkochtHuis){
+  			// push alleen de data van de postcode waar de gebruiker naar zoekt
   			if (zoekPostcode == verkochtHuis.verkochtPostcode){
   				data.push(verkochtHuis.details);
   			}
+  			nummerinloop += 1;
+  			// als we door alle data heen zijn, doe dan wat met data
+  			if (nummerinloop == json.length){
+
+  				timelineBands = timeline(data);
+
+		  		console.log(timelineBands);
+
+		  		d3.select("#viz svg").selectAll("rect")
+		  			.data(timelineBands)
+		  			.enter()
+		  			.append('rect')
+		  			.attr("x", function (d) {
+		  				return d.start
+		  			})
+		  			.attr("y", function (d) {
+		  				return d.id * 18;
+		  			})
+		  			.attr("height", 15)
+		  			.attr("width", function (d) {
+		  				return d.end - d.start
+		  			})
+		  			.style("fill", "#0099ae")
+		  			.style("stroke", "black")
+		  			.style("stroke-width", 1)
+		  			.on('mouseover', function(d) {
+		  				console.log(d);
+		  			})
+  			}
   		})
-  		console.log(data);
-
-  		timelineBands = timeline(data);
-
-  		d3.select("#viz svg").selectAll("rect")
-  			.data(timelineBands)
-  			.enter()
-  			.attr("x", function (d) {
-  				return d.start
-  			})
-  			.attr("y", function (d) {
-  				return d.y
-  			})
-  			.attr("height", 15)
-  			.attr("width", function (d) {
-  				return d.details.end - d.details.start
-  			})
-  			.style("fill", "#0099ae")
-  			.style("stroke", "black")
-  			.style("stroke-width", 1)
   	})
 }
