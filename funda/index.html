@@ -14,6 +14,8 @@
 	<link href="css/main.css" rel="stylesheet">
 	<link href="css/responsive.css" rel="stylesheet">
 	<script src="d3/d3.min.js" charset="utf-8"></script>
+    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <link rel="stylesheet" href="//rawgithub.com/Caged/d3-tip/master/examples/example-styles.css">
     <script src="js/d3.layout.timeline.js" charset="utf-8" type="text/javascript"></script>
 	<script type="text/javascript" src="js/scripts.js"></script>
     <script type="text/javascript" src="js/d3pie.min.js"></script>
@@ -100,16 +102,6 @@
                             <h2>Appartement</h2>
                         </div>
                     </div>
-                    <!--
-                    Bouwgrond toch maar niet?
-                    <div id="verkopers-bouwgrond" class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
-                        <div class="verkoop single-service" onclick="verkooptabel('bouwgrond')">
-                            <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="1200ms">
-                                <img src="images/icons/worker5.png" alt="">
-                            </div>
-                            <h2>Bouwgrond</h2>
-                        </div>
-                    </div>-->
                 </div>
                 <div id="verkoopinfo" class="col-sm-12">
                     <div class="form-group">
@@ -153,11 +145,9 @@
                       </div>
                       <input type="button" class="btn btn-common" onclick="maakTabel()" value="Zoek">
                     </div>
-                    <div id="results">
+                    <div id="viz-title">
                     </div>
                     <div id="viz">
-                      <svg style="background:white;" height=400 width=400>
-                      </svg>
                     </div>
                 </div>
             </div>

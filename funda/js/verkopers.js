@@ -6,6 +6,10 @@ function verkooptabel(soort_verkoop) {
 	$("#zoekPostcode").addClass(soort_verkoop);
 }
 
+/*
+https://gist.github.com/emeeks/280cb0607c68faf30bb5
+*/
+
 function maakTabel(){
 	// get de value van het input field dat de gebruiker heeft ingevuld met een postcode
 	var zoekPostcode = document.getElementById('zoekPostcode').value;
@@ -30,28 +34,28 @@ function maakTabel(){
 	    }
 	}
 
-	document.getElementById('results').innerHTML += "<br><br><b>Huizen met woonoppervlakte " + woonopp + " in postcode " + zoekPostcode + ":</b><br>";
+	document.getElementById('viz-title').innerHTML = "<br><br><b>Huizen met woonoppervlakte " + woonopp + " in postcode " + zoekPostcode + ":</b><br>";
 
-	d3.json("js/json/verkocht/" + soort_verkoop + "/" + soort_verkoop + woonopp + ".json", function(error,json) {
-		if (error) return console.warn(error);
-		var counter = 0;
-		json.forEach(function(verkochtHuis){
-			var postcodeVanHuis = verkochtHuis.verkochtPostcode;
-			if (postcodeVanHuis == zoekPostcode) {
-				document.getElementById('results').innerHTML += '<br>' + verkochtHuis.verkochtAdres + ', €' + verkochtHuis.verkochtVraagprijs + ', ' + verkochtHuis.details.total + ', van: ' + verkochtHuis.details.start + ', tot: ' + verkochtHuis.details.end;
-				counter++;
-			}
-		})
-		if (counter == 0){
-			document.getElementById('results').innerHTML += '<br>Sorry, op deze postcode hebben geen huizen te koop gestaan met de gekozen woonoppervlakte. Het lijkt erop dat je de eerste bent die dit type huis hier probeert te verkopen!'
-		}
-	})
+	d3.select("#viz")
+		.select("svg")
+		.remove()
 
 	var timeline = d3.layout.timeline()
   		.size([300,300]);
 
+  	colorScale = d3.scale.linear()
+		  .range(["#cdc3d0", "#002299"]);
+
+	//https://github.com/Caged/d3-tip
+	var tip = d3.tip()
+	  .attr('class', 'd3-tip')
+	  .offset([-10, 0])
+	  .html(function(d) {
+	    return d.verkochtAdres + "<br>Vraagprijs: €" + d.verkochtVraagprijs + "</span><br>Tijdsduur: " + d.total;
+	  })
+
   	//d3.json("js/json/verkocht/" + soort_verkoop + "/" + soort_verkoop + woonopp + ".json", function(error,json) {
-  	d3.json("js/json/verkocht/woonhuis/woonhuis050_herschreven.json", function(error,json) {
+  	d3.json("js/json/verkocht/" + soort_verkoop + "/" + soort_verkoop + woonopp + "_herschreven.json", function(error,json) {
   		if(error) return console.warn(error);
 
   		var data = [];
@@ -60,7 +64,7 @@ function maakTabel(){
   		json.forEach(function(verkochtHuis){
   			// push alleen de data van de postcode waar de gebruiker naar zoekt
   			if (zoekPostcode == verkochtHuis.verkochtPostcode){
-  				data.push(verkochtHuis.details);
+  				data.push(verkochtHuis);
   			}
   			nummerinloop += 1;
   			// als we door alle data heen zijn, doe dan wat met data
@@ -68,28 +72,63 @@ function maakTabel(){
 
   				timelineBands = timeline(data);
 
-		  		console.log(timelineBands);
+  				// set het domein van de colorscale met de minimale en maximal vraagprijs
+  				var minVraagprijs = d3.min(data, function(d) { return d.verkochtVraagprijs; })
+  				var maxVraagprijs = d3.max(data, function(d) { return d.verkochtVraagprijs; })
+  				colorScale.domain([minVraagprijs,maxVraagprijs]);
+
+  				d3.select("#viz")
+					.append("svg")
+
+  				/* Invoke the tip in the context of your visualization */
+				d3.select("#viz svg").call(tip)
+
+				d3.select("#viz svg").selectAll("text")
+					.data(timelineBands)
+		  			.enter()
+		  			.append('text')
+		  			.text(function(d){
+		  				return d.verkochtAdres
+		  			})
+		  			.attr("x", 0)
+		  			.attr("y", function (d) {
+		  				return d.id * 18;
+		  			})
+		  			.attr("height", 15)
 
 		  		d3.select("#viz svg").selectAll("rect")
 		  			.data(timelineBands)
 		  			.enter()
 		  			.append('rect')
 		  			.attr("x", function (d) {
-		  				return d.start
+		  				// if data is missing
+		  				if (isNaN(d.start) == true){
+		  					return 0
+		  				}
+		  				else {
+		  					return d.start*2 + 300
+		  				}
 		  			})
 		  			.attr("y", function (d) {
 		  				return d.id * 18;
 		  			})
 		  			.attr("height", 15)
 		  			.attr("width", function (d) {
-		  				return d.end - d.start
+		  				// if data is missing
+		  				if (isNaN(d.start) == true){
+		  					return 0
+		  				}
+		  				else {
+		  					return d.end*2 - d.start*2
+		  				}
 		  			})
-		  			.style("fill", "#0099ae")
+		  			.style("fill", function (d) {
+		  				return colorScale(d.verkochtVraagprijs)
+		  			})
 		  			.style("stroke", "black")
-		  			.style("stroke-width", 1)
-		  			.on('mouseover', function(d) {
-		  				console.log(d);
-		  			})
+		  			.style("stroke-width", 0.5)
+		  			.on('mouseover', tip.show)
+      				.on('mouseout', tip.hide)
   			}
   		})
   	})

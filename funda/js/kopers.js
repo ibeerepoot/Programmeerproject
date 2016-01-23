@@ -6,7 +6,7 @@ function from_pie_to_map(soort) {
 
 	$("#map").show();
 
-	var meervoud = {woonhuis:"woonhuizen", appartement:"appartementen", parkeerplaats:"parkeerplaatsen", bouwgrond:"bouwgrond"};
+	var meervoud = {woonhuis:"woonhuizen", appartement:"appartementen"};
 
 	// update de text die kopers te zien krijgen
 	var soort_bezit = soort.toLowerCase();

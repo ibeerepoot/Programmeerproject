@@ -36,6 +36,28 @@ function vraagprijzen(soort,page) {
 		.write('json/tekoop/' + soort + '.json')
 }
 
+//vraagprijzen('woonhuis',2);
+//console.log(koopinfo);
+
+/*
+Vraagprijzen verkochte huizen op postcode
+*/
+
+/*function verkocht(soort,vanm2,totm2) {
+	x('http://www.funda.nl/koop/verkocht/heel-nederland/' + vanm2 + '-' + totm2 + '-woonopp/' + soort + '/', '.object-list li', [{
+		adres: 'a.object-street',
+		postcode: '.properties-list:nth-of-type(1)',
+		vraagprijs: '.price',
+		link: 'a.object-street@href',
+		start: x('a.object-street@href', '.transaction-date:nth-of-type(1) strong'),
+		total: x('a.object-street@href', '.transaction-date:nth-of-type(3) strong'),
+		end: x('a.object-street@href', '.transaction-date:nth-of-type(5) strong'),
+	}])
+		.paginate('.next@href')	
+  		//.limit(limit)
+		.write('json/verkocht/' + soort + '/' + soort + vanm2 + totm2 + '.json')
+}*/
+
 var verkoopinfo = [];
 
 function verkocht(soort,vanm2,totm2) {
@@ -60,6 +82,7 @@ function verkocht(soort,vanm2,totm2) {
 						var verkochtVraagprijs = result.vraagprijs.replace(/€\s/g,'').replace(/\sk.k./g,'').replace(/\./g,'').replace(/\svon/g,'');
 						var verkochtLink = result.link;
 						var verkochtObject = {verkochtAdres,verkochtPostcode,verkochtVraagprijs,verkochtLink};
+						//console.log(verkochtObject);
 						verkoopinfo.push(verkochtObject);						
 					}
 				})	
@@ -76,21 +99,15 @@ function getDetails(linkje, nummer, cb) {
 		total: '.transaction-date:nth-of-type(3) strong',
 		end: '.transaction-date:nth-of-type(5) strong',
 	})(function(err, obj){
-		if (obj) {
-			// format de datums
-			var startArray = obj.start.split('-');
-			obj.start = startArray[1] + '/' + startArray[0] + '/' + startArray[2];
-			var endArray = obj.end.split('-');
-			obj.end = endArray[1] + '/' + endArray[0] + '/' + endArray[2];
-			cb(obj);
-		}
-		else {
-			cb({start: "niet gevonden", total: "niet gevonden", end: "niet gevonden"});
-		}
+		/*// format de datums
+		var startArray = obj.start.split('-');
+		obj.start = startArray[1] + '/' + startArray[0] + '/' + startArray[2];
+		var endArray = obj.end.split('-');
+		obj.end = endArray[1] + '/' + endArray[0] + '/' + endArray[2];*/
+		cb(obj);
 	})
 }	
 
-// JSON moet worden herschreven voor d3.layout.timeline
 function herschrijfJson(json,soort,vanm2,totm2) {
 	var nummer = 0;
 	json.forEach(function(jsonobject){
@@ -114,7 +131,7 @@ function scrapeVerkocht(soort,vanm2,totm2){
 				written += 1;
 				if(written == objecteninlijst.length) {
 					jsonfile.writeFileSync('json/verkocht/' + soort + '/' + soort + vanm2 + totm2 + '.json', objecteninlijst)
-					herschrijfJson(objecteninlijst,soort,vanm2,totm2);
+					//herschrijfJson(objecteninlijst,soort,vanm2,totm2);
 				}
 			});
 		})
@@ -137,8 +154,8 @@ function scrapeVerkocht(soort,vanm2,totm2){
 //scrapeVerkocht('appartement',160,5000);
 //scrapeVerkocht('woonhuis',0,50);
 //scrapeVerkocht('woonhuis',50,80);
-//scrapeVerkocht('woonhuis',80,90);
-scrapeVerkocht('woonhuis',90,100);
+scrapeVerkocht('woonhuis',80,90);
+//scrapeVerkocht('woonhuis',90,100);
 //scrapeVerkocht('woonhuis',100,110);
 //scrapeVerkocht('woonhuis',110,120);
 //scrapeVerkocht('woonhuis',120,130);
