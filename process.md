@@ -66,3 +66,17 @@ Parkeerplaatsen en bouwgrond weggehaald. Misschien best interessant, maar door h
 
 # 20 januari
 Kaartje weer in orde gekregen. Ging niet goed bij berekenen gemiddelde vraagprijzen. Postcodes kwamen meerdere keren voor. Nu een object gemaakt met postcode als key en vraagprijs als value. Hoef ik ook niet meer door alles heen te loopen om de juiste vraagprijs bij de postcode te vinden. 
+
+# 21 januari
+Gelukt om verkoopdata van huizen te scrapen. X-ray ondersteunde voorheen dat je een pagina kon scrapen en dan weer op die linkjes kon klikken om verder te scrapen op die pagina's. Daar zijn nu issues mee, bij meerdere mensen (merk ik op de github repository). Nu pak ik eerst de linkjes, en pak ik dan zo'n linkje om de verkoopdetails te scrapen. Duurt wel lang. 
+
+# 22 januari
+Ik merk dat sommige huizen undefined verkoopdetails terug geven. De eerste lijken wel allemaal goed te zijn, maar aan het eind krijg ik een heel aantal keer undefined objecten terug. Misschien dat Funda het niet leuk meer vindt en me een andere pagina teruggeeft?
+
+Het JSON bestand dat ik schrijf met de scraper moet anders. De datum van de start van de verkoop bijvoorbeeld, staat nu in json.details.start, maar moet json.start worden voor de timeline. Anders pakt layout.timeline de data niet. Functie herschrijfjson geschreven.
+
+# 24 januari
+Probeer nog steeds een goed bestand met spoor- en snelwegen te vinden, maar geen resultaat. Rijkswaterstaat heeft wel wat, en die heb ik van shapefile naar json geconverteerd met ogr2ogr, maar de projectie is verkeerd denk ik. In Mapbox geeft ie namelijk niet goed weer en ook op mijn kaartje niet. 
+
+Correctie, toch wel! De maker hiervan is een held: https://github.com/openstate/geodata/blob/master/nwbspoorwegen/spoorvakken.geojson
+

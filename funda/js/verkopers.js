@@ -34,7 +34,7 @@ function maakTabel(){
 	    }
 	}
 
-	document.getElementById('viz-title').innerHTML = "<br><br><b>Huizen met woonoppervlakte " + woonopp + " in postcode " + zoekPostcode + ":</b><br>";
+	document.getElementById('viz-title').innerHTML = "<br><br><b>Huizen met deze woonoppervlakte in postcode " + zoekPostcode + ":</b><br>";
 
 	d3.select("#viz")
 		.select("svg")
@@ -83,7 +83,7 @@ function maakTabel(){
   				/* Invoke the tip in the context of your visualization */
 				d3.select("#viz svg").call(tip)
 
-				d3.select("#viz svg").selectAll("text")
+				/*d3.select("#viz svg").selectAll("text")
 					.data(timelineBands)
 		  			.enter()
 		  			.append('text')
@@ -94,7 +94,7 @@ function maakTabel(){
 		  			.attr("y", function (d) {
 		  				return d.id * 18;
 		  			})
-		  			.attr("height", 15)
+		  			.attr("height", 15)*/
 
 		  		d3.select("#viz svg").selectAll("rect")
 		  			.data(timelineBands)
@@ -106,7 +106,7 @@ function maakTabel(){
 		  					return 0
 		  				}
 		  				else {
-		  					return d.start*2 + 300
+		  					return d.start*2
 		  				}
 		  			})
 		  			.attr("y", function (d) {

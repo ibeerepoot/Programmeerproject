@@ -76,6 +76,7 @@ function getDetails(linkje, nummer, cb) {
 		total: '.transaction-date:nth-of-type(3) strong',
 		end: '.transaction-date:nth-of-type(5) strong',
 	})(function(err, obj){
+		console.log(obj);
 		if (obj) {
 			// format de datums
 			var startArray = obj.start.split('-');
@@ -138,10 +139,10 @@ function scrapeVerkocht(soort,vanm2,totm2){
 //scrapeVerkocht('woonhuis',0,50);
 //scrapeVerkocht('woonhuis',50,80);
 //scrapeVerkocht('woonhuis',80,90);
-scrapeVerkocht('woonhuis',90,100);
+//scrapeVerkocht('woonhuis',90,100);
 //scrapeVerkocht('woonhuis',100,110);
 //scrapeVerkocht('woonhuis',110,120);
-//scrapeVerkocht('woonhuis',120,130);
+scrapeVerkocht('woonhuis',120,130);
 //scrapeVerkocht('woonhuis',130,140);
 //scrapeVerkocht('woonhuis',140,160);
 //scrapeVerkocht('woonhuis',160,5000);

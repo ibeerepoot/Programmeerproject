@@ -100,7 +100,7 @@ d3.json("js/json/aanbod.json", function(error,json) {
 		"misc": {
 			"canvasPadding": {
 				"top": 20,
-				"right": 20,
+				"left": 20,
 				"bottom": 20,
 				"left": 20
 			}
@@ -174,6 +174,7 @@ function createMap(soort){
 	}
 
 	var geolayer;
+	var spoorvakkenLayer;
 
 	function highlightFeature(e) {
 	    var layer = e.target;
@@ -201,7 +202,7 @@ function createMap(soort){
 	    map.fitBounds(e.target.getBounds());
 	}
 
-	var info = L.control();
+	var info = L.control({position: 'bottomleft'});
 
 	info.onAdd = function (map) {
 	    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
@@ -254,7 +255,30 @@ function createMap(soort){
 		}
 	}
 
-	
+	// open geojson met spoorvakken
+	d3.json('/Programmeerproject/funda/js/geojson/spoorvakken.geojson', function(geojson) {
+		// loop door de features
+		for (var i = 0; i < geojson.features.length; i++) {
+			// voeg de laag toe aan de kaart
+			spoorvakkenLayer = L.geoJson(geojson.features[i], {
+				// set de style van de spoorvakken
+				style: function(feature) {
+					return {
+						weight: 1,
+						opacity: 1,
+						fillColor: 'blue',
+						color: '#ababab',
+						dashArray: '1',
+						fillOpacity: 1
+					};
+				}
+			})//.addTo(map);				
+		}
+	})
+
+	var overlayMaps = {
+	    "Spoorwegen": spoorvakkenLayer
+	};
 
 	var legend = L.control({position: 'bottomright'});
 
@@ -274,5 +298,8 @@ function createMap(soort){
 	};
 
 	legend.addTo(map);
+
+	// voeg overlay laag/lagen toe
+	L.control.layers(overlayMaps).addTo(map);
 }
 
