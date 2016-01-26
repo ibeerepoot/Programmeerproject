@@ -54,12 +54,17 @@ function maakTabel(){
 	    return d.verkochtAdres + "<br>Vraagprijs: €" + d.verkochtVraagprijs + "</span><br>Tijdsduur: " + d.total;
 	  })
 
+	
+
   	//d3.json("js/json/verkocht/" + soort_verkoop + "/" + soort_verkoop + woonopp + ".json", function(error,json) {
   	d3.json("js/json/verkocht/" + soort_verkoop + "/" + soort_verkoop + woonopp + "_herschreven.json", function(error,json) {
   		if(error) return console.warn(error);
 
   		var data = [];
   		var nummerinloop = 0;
+
+  		var minDatum;
+  		var maxDatum;
 
   		json.forEach(function(verkochtHuis){
   			// push alleen de data van de postcode waar de gebruiker naar zoekt
@@ -77,24 +82,15 @@ function maakTabel(){
   				var maxVraagprijs = d3.max(data, function(d) { return d.verkochtVraagprijs; })
   				colorScale.domain([minVraagprijs,maxVraagprijs]);
 
+  				// bereken de eerste en laatste datum van de data om te gebruiken voor de x-as
+  				minDatum = d3.min(timelineBands, function(d) { return d.originalStart; })
+  				maxDatum = d3.max(timelineBands, function(d) { return d.originalEnd; })
+
   				d3.select("#viz")
 					.append("svg")
 
   				/* Invoke the tip in the context of your visualization */
 				d3.select("#viz svg").call(tip)
-
-				/*d3.select("#viz svg").selectAll("text")
-					.data(timelineBands)
-		  			.enter()
-		  			.append('text')
-		  			.text(function(d){
-		  				return d.verkochtAdres
-		  			})
-		  			.attr("x", 0)
-		  			.attr("y", function (d) {
-		  				return d.id * 18;
-		  			})
-		  			.attr("height", 15)*/
 
 		  		d3.select("#viz svg").selectAll("rect")
 		  			.data(timelineBands)
@@ -131,5 +127,24 @@ function maakTabel(){
       				.on('mouseout', tip.hide)
   			}
   		})
+
+		// set het domein en range voor de x-as
+		var x = d3.time.scale()
+			.domain([minDatum,maxDatum])
+			.range([0,600])
+
+		// maak de x-as op
+		var xAxis = d3.svg.axis()
+		    .scale(x)
+		    .ticks(d3.time.month,1)
+		    	.tickFormat(d3.time.format("%b'%y"))
+		    .orient("bottom");
+
+		// voeg de x-as toe
+		d3.select("#viz svg").append("g")
+	      .attr("class", "x axis")
+	      .attr("transform", "translate(0,300)")
+	      .call(xAxis);
   	})
+
 }

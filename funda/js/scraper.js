@@ -103,7 +103,6 @@ function herschrijfJson(json,soort,vanm2,totm2) {
 			jsonfile.writeFileSync('json/verkocht/' + soort + '/' + soort + vanm2 + totm2 + '_herschreven.json', json);
 		}
 	})
-	
 }
 
 function scrapeVerkocht(soort,vanm2,totm2){
@@ -129,7 +128,7 @@ function scrapeVerkocht(soort,vanm2,totm2){
 //scrapeVerkocht('appartement',0,50);
 //scrapeVerkocht('appartement',50,80);
 //scrapeVerkocht('appartement',80,90);
-//scrapeVerkocht('appartement',90,100);
+scrapeVerkocht('appartement',90,100);
 //scrapeVerkocht('appartement',100,110);
 //scrapeVerkocht('appartement',110,120);
 //scrapeVerkocht('appartement',120,130);
@@ -142,7 +141,7 @@ function scrapeVerkocht(soort,vanm2,totm2){
 //scrapeVerkocht('woonhuis',90,100);
 //scrapeVerkocht('woonhuis',100,110);
 //scrapeVerkocht('woonhuis',110,120);
-scrapeVerkocht('woonhuis',120,130);
+//scrapeVerkocht('woonhuis',120,130);
 //scrapeVerkocht('woonhuis',130,140);
 //scrapeVerkocht('woonhuis',140,160);
 //scrapeVerkocht('woonhuis',160,5000);

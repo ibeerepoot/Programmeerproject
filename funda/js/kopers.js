@@ -121,12 +121,30 @@ function createMap(soort){
 
 	var map = L.map('map').setView([52.3167, 5.55], 8);
 
-	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-		minZoom: 7,
-	    maxZoom: 18,
-	    id: 'ibeerepoot.olc86g36',
-	    accessToken: 'pk.eyJ1IjoiaWJlZXJlcG9vdCIsImEiOiJjaWo3Y3lqcWkwMDU2dzNtMzV0bnViM2s0In0.egPnUZiAx1Wj9B4pwZlNyQ'
-	}).addTo(map);
+	var spoorvakkenLayer;
+
+	// open geojson met spoorvakken
+	d3.json('/Programmeerproject/funda/js/geojson/spoorvakken.geojson', function(geojson) {
+		spoorvakkenLayer = L.geoJson();
+
+		// loop door de features
+		for (var i = 0; i < geojson.features.length; i++) {
+			spoorvakkenLayer.addData(geojson.features[i]);
+		}
+
+		var overlayMaps = {
+		    "Spoorwegen": spoorvakkenLayer
+		};
+
+		var baseLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+			minZoom: 8,
+		    maxZoom: 18,
+		    id: 'ibeerepoot.olc86g36',
+		    accessToken: 'pk.eyJ1IjoiaWJlZXJlcG9vdCIsImEiOiJjaWo3Y3lqcWkwMDU2dzNtMzV0bnViM2s0In0.egPnUZiAx1Wj9B4pwZlNyQ'
+		}).addTo(map);
+
+		L.control.layers(baseLayer, overlayMaps, {position: 'bottomleft'}).addTo(map);
+	})
 
 	var gemiddeldes;
 
@@ -174,7 +192,6 @@ function createMap(soort){
 	}
 
 	var geolayer;
-	var spoorvakkenLayer;
 
 	function highlightFeature(e) {
 	    var layer = e.target;
@@ -202,7 +219,7 @@ function createMap(soort){
 	    map.fitBounds(e.target.getBounds());
 	}
 
-	var info = L.control({position: 'bottomleft'});
+	var info = L.control({position: 'topright'});
 
 	info.onAdd = function (map) {
 	    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
@@ -254,31 +271,8 @@ function createMap(soort){
 			})
 		}
 	}
+	
 
-	// open geojson met spoorvakken
-	d3.json('/Programmeerproject/funda/js/geojson/spoorvakken.geojson', function(geojson) {
-		// loop door de features
-		for (var i = 0; i < geojson.features.length; i++) {
-			// voeg de laag toe aan de kaart
-			spoorvakkenLayer = L.geoJson(geojson.features[i], {
-				// set de style van de spoorvakken
-				style: function(feature) {
-					return {
-						weight: 1,
-						opacity: 1,
-						fillColor: 'blue',
-						color: '#ababab',
-						dashArray: '1',
-						fillOpacity: 1
-					};
-				}
-			})//.addTo(map);				
-		}
-	})
-
-	var overlayMaps = {
-	    "Spoorwegen": spoorvakkenLayer
-	};
 
 	var legend = L.control({position: 'bottomright'});
 
@@ -298,8 +292,5 @@ function createMap(soort){
 	};
 
 	legend.addTo(map);
-
-	// voeg overlay laag/lagen toe
-	L.control.layers(overlayMaps).addTo(map);
 }
 
