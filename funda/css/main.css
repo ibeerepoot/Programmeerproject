@@ -124,9 +124,8 @@
   }
 
   #verkopers svg {
-    height: 400px;
     width: 100%;
-    padding: 20px;
+    padding: 30px;
   }
 
   #verkopers .viz {
@@ -136,10 +135,6 @@
 
   #viz svg rect:hover {
     stroke-width: 2!important;
-  }
-
-  #viz svg text {
-    padding-top: 1px;
   }
 
   .axis path,

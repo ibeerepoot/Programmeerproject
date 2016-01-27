@@ -78,5 +78,16 @@ Het JSON bestand dat ik schrijf met de scraper moet anders. De datum van de star
 # 24 januari
 Probeer nog steeds een goed bestand met spoor- en snelwegen te vinden, maar geen resultaat. Rijkswaterstaat heeft wel wat, en die heb ik van shapefile naar json geconverteerd met ogr2ogr, maar de projectie is verkeerd denk ik. In Mapbox geeft ie namelijk niet goed weer en ook op mijn kaartje niet. 
 
-Correctie, toch wel! De maker hiervan is een held: https://github.com/openstate/geodata/blob/master/nwbspoorwegen/spoorvakken.geojson
+Correctie, toch wel iets gevonden! De maker hiervan is een held: https://github.com/openstate/geodata/blob/master/nwbspoorwegen/spoorvakken.geojson
 
+# 25 januari
+De spoorwegen wil ik als laag op het kaartje, dus dat je hem aan en uit kan zetten. Met leaflet kun je aangeven welke lagen direct aanwezig moeten zijn, welke lagen de basislagen zijn (dus waar je er maar een van kunt hebben) en welke overlays je wilt hebben. Het is me wel gelukt om de spoorwegen erop te krijgen, maar nu is de basislaag weer weg...
+
+Basislaag ook weer tevoorschijn getoverd. Nu kun je als gebruiker de spoorwegenlaag aanzetten.
+
+# 27 januari
+SVG van de verkooptabel is nu nog standaard 300x300, maar als er meer huizen zijn heb ik een probleem. Hoogte moet dus dynamisch aangepast worden. Daarvoor moet het aantal huizen x de hoogte (18) en nog een beetje erbij, door de marges. Ziet er nu goed uit.
+
+De ticks zijn ook nog een probleem. Soms is de looptijd maar heel kort, en kun je een tick per maand doen, maar als er een huis is geweest met een looptijd van meerdere jaren, gaan de ticks overlappen. Hoe bereken je hoeveel ticks er komen? 
+
+Blijkbaar kun je de maximale originalEnd datum minus de minimale originalStart datum doen en krijg je een getal. Dat is in de miljarden. Daarmee kan ik aangeven wanneer er een tick per maand moet komen, of een tick per 3 maanden, of een tick per 6 maanden. Nu komen de ticks er altijd netjes op te staan. 

@@ -11,7 +11,7 @@ function from_pie_to_map(soort) {
 	// update de text die kopers te zien krijgen
 	var soort_bezit = soort.toLowerCase();
 
-	$("#kopers-stap-1").html("Je bent op zoek naar een " + soort_bezit + ".<br>In onderstaande kaart is de gemiddelde vraagprijs van " + meervoud[soort_bezit] + " per 4-cijferige postcode in beeld gebracht.<br>");
+	$("#kopers-stap-1").html("Je bent op zoek naar een " + soort_bezit + ".<br>In onderstaande kaart is de gemiddelde vraagprijs van " + meervoud[soort_bezit] + " per 4-cijferige postcode in beeld gebracht.<br>Vink linksonderin de laag met spoorwegen aan om te zien hoe de postcodes zich verhouden tot het openbaar vervoer.<br>");
 
 	createMap(soort_bezit);
 }
@@ -115,13 +115,38 @@ d3.json("js/json/aanbod.json", function(error,json) {
 })
 
 function createMap(soort){
+
+	var opts = {
+	  lines: 11 // The number of lines to draw
+	, length: 0 // The length of each line
+	, width: 17 // The line thickness
+	, radius: 42 // The radius of the inner circle
+	, scale: 1 // Scales overall size of the spinner
+	, corners: 1 // Corner roundness (0..1)
+	, color: '#000' // #rgb or #rrggbb or array of colors
+	, opacity: 0.25 // Opacity of the lines
+	, rotate: 0 // The rotation offset
+	, direction: 1 // 1: clockwise, -1: counterclockwise
+	, speed: 1 // Rounds per second
+	, trail: 60 // Afterglow percentage
+	, fps: 20 // Frames per second when using setTimeout() as a fallback for CSS
+	, zIndex: 2e9 // The z-index (defaults to 2000000000)
+	, className: 'spinner' // The CSS class to assign to the spinner
+	, top: '50%' // Top position relative to parent
+	, left: '50%' // Left position relative to parent
+	, shadow: false // Whether to render a shadow
+	, hwaccel: false // Whether to use hardware acceleration
+	, position: 'absolute' // Element positioning
+	}
+	var target = document.getElementById('map')
+	var spinner = new Spinner(opts).spin(target);
+
 	/*
 	http://leafletjs.com/examples/choropleth.html
 	*/
 
-	var map = L.map('map').setView([52.3167, 5.55], 8);
-
 	var spoorvakkenLayer;
+	var overlayMaps;
 
 	// open geojson met spoorvakken
 	d3.json('/Programmeerproject/funda/js/geojson/spoorvakken.geojson', function(geojson) {
@@ -130,21 +155,29 @@ function createMap(soort){
 		// loop door de features
 		for (var i = 0; i < geojson.features.length; i++) {
 			spoorvakkenLayer.addData(geojson.features[i]);
+			if (i == geojson.features.length - 1) {
+				overlayMaps = {
+				    "Spoorwegen": spoorvakkenLayer
+				};
+				L.control.layers(baseLayer, overlayMaps, {position: 'bottomleft'}).addTo(map);
+			}
 		}
-
-		var overlayMaps = {
-		    "Spoorwegen": spoorvakkenLayer
-		};
-
-		var baseLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-			minZoom: 8,
-		    maxZoom: 18,
-		    id: 'ibeerepoot.olc86g36',
-		    accessToken: 'pk.eyJ1IjoiaWJlZXJlcG9vdCIsImEiOiJjaWo3Y3lqcWkwMDU2dzNtMzV0bnViM2s0In0.egPnUZiAx1Wj9B4pwZlNyQ'
-		}).addTo(map);
-
-		L.control.layers(baseLayer, overlayMaps, {position: 'bottomleft'}).addTo(map);
 	})
+
+	var tiles = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+		minZoom: 8,
+	    maxZoom: 18,
+	    id: 'ibeerepoot.olc86g36',
+	    accessToken: 'pk.eyJ1IjoiaWJlZXJlcG9vdCIsImEiOiJjaWo3Y3lqcWkwMDU2dzNtMzV0bnViM2s0In0.egPnUZiAx1Wj9B4pwZlNyQ'
+	})
+
+	var map = L.map('map', {
+		layers: tiles
+	}).setView([52.3167, 5.55], 8);
+
+	var baseLayer = {
+		"Kaart": tiles
+	};
 
 	var gemiddeldes;
 
@@ -269,11 +302,12 @@ function createMap(soort){
 					}).addTo(map);				
 				}
 			})
+			if (i == 999) {
+				spinner.stop();
+			}
 		}
 	}
 	
-
-
 	var legend = L.control({position: 'bottomright'});
 
 	legend.onAdd = function (map) {
