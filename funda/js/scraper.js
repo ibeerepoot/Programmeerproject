@@ -69,6 +69,7 @@ function verkocht(soort,vanm2,totm2) {
 	})
 }
 
+// crawl de details van de verkoop
 function getDetails(linkje, nummer, cb) {
 	// scrape de individuele pagina's
 	x(linkje, '.transaction-data', {
@@ -85,6 +86,7 @@ function getDetails(linkje, nummer, cb) {
 			obj.end = endArray[1] + '/' + endArray[0] + '/' + endArray[2];
 			cb(obj);
 		}
+		// als Funda een undefined teruggeeft
 		else {
 			cb({start: "niet gevonden", total: "niet gevonden", end: "niet gevonden"});
 		}
@@ -105,6 +107,7 @@ function herschrijfJson(json,soort,vanm2,totm2) {
 	})
 }
 
+// geef de opdracht om te scrapen
 function scrapeVerkocht(soort,vanm2,totm2){
 	verkocht(soort,vanm2,totm2).then(function(objecteninlijst){
 		var written = 0;

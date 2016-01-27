@@ -1,3 +1,4 @@
+// transition van pie naar map: hide pie en show map
 function from_pie_to_map(soort) {
 
 	$("#pieChart").hide();
@@ -116,6 +117,7 @@ d3.json("js/json/aanbod.json", function(error,json) {
 
 function createMap(soort){
 
+	// maak een spinner die laad tot de kaart is gemaakt
 	var opts = {
 	  lines: 11 // The number of lines to draw
 	, length: 0 // The length of each line
@@ -155,15 +157,20 @@ function createMap(soort){
 		// loop door de features
 		for (var i = 0; i < geojson.features.length; i++) {
 			spoorvakkenLayer.addData(geojson.features[i]);
+			// als je door alle features heen bent
 			if (i == geojson.features.length - 1) {
+				// voeg layer toe aan overlaymaps: hier kunnen eventueel nog meer layers worden toegevoegd!
 				overlayMaps = {
 				    "Spoorwegen": spoorvakkenLayer
 				};
+				// maak het control vierkantje op: eerste argument is baselayers (kan er maar een van aan staan), 
+				// tweede zijn de aanvinkbare layers
 				L.control.layers(baseLayer, overlayMaps, {position: 'bottomleft'}).addTo(map);
 			}
 		}
 	})
 
+	// maak de onderste laag met layers van mapbox
 	var tiles = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
 		minZoom: 8,
 	    maxZoom: 18,
@@ -171,10 +178,13 @@ function createMap(soort){
 	    accessToken: 'pk.eyJ1IjoiaWJlZXJlcG9vdCIsImEiOiJjaWo3Y3lqcWkwMDU2dzNtMzV0bnViM2s0In0.egPnUZiAx1Wj9B4pwZlNyQ'
 	})
 
+	// initieer de kaart en zorg dat de tiles meteen zichtbaar zijn
+	// view op nederland
 	var map = L.map('map', {
 		layers: tiles
 	}).setView([52.3167, 5.55], 8);
 
+	// maak baselayer aan: hier kunnen nog andere layers bij, bijvoorbeeld andere thema's van mapbox
 	var baseLayer = {
 		"Kaart": tiles
 	};
@@ -187,6 +197,7 @@ function createMap(soort){
 		visualiseer_gemiddeldes();
 	})
 
+	// functie om te bepalen welke kleur een postcode moet worden
 	function getColor(postcode) {
 		var gemiddelde_van_postcode = gemiddeldes[postcode];
 		return gemiddelde_van_postcode > 2000000 ? '#7f0000' :
@@ -206,6 +217,7 @@ function createMap(soort){
 			         '#fff' ;
 	}
 
+	// functie om te bepalen welke kleur elk element in de legenda moet hebben
 	function getSquareColor(niveau) {
 	    return niveau > 2000000 ? '#7f0000' :
 			   niveau > 1000000 ? '#990000' :
@@ -226,6 +238,7 @@ function createMap(soort){
 
 	var geolayer;
 
+	// functie die wordt getriggerd als de gebruiker over een postcode heen gaan
 	function highlightFeature(e) {
 	    var layer = e.target;
 
@@ -243,23 +256,27 @@ function createMap(soort){
 
 	}
 
+	// wordt getriggerd als gebruiker niet meer boven de postcode staat
 	function resetHighlight(e) {
 	    geolayer.resetStyle(e.target);
 	    info.update();
 	}
 
+	// wordt getriggerd als de gebruiker op een postcode klikt
 	function zoomToFeature(e) {
 	    map.fitBounds(e.target.getBounds());
 	}
 
+	// plaats de tooltip rechtsbovenin
 	var info = L.control({position: 'topright'});
 
+	// maak de tooltip div aan
 	info.onAdd = function (map) {
 	    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
 	    return this._div;
 	};
 
-	// method that we will use to update the control based on feature properties passed
+	// update de tekst die in de tooltip staat als gebruiker over postcodes beweegt
 	info.update = function (props) {
 		if(props) {
 			var gemiddelde_van_postcode = gemiddeldes[props.postcode];
@@ -269,8 +286,10 @@ function createMap(soort){
 		}
 	};
 
+	// voeg info toe aan kaart
 	info.addTo(map);
 
+	// geef de postcodes de juiste kleur
 	function visualiseer_gemiddeldes() {
 		// loop door geojson bestanden
 		for (var i = 101; i < 1000; i++) {
@@ -292,6 +311,7 @@ function createMap(soort){
 								fillOpacity: 0.5
 							};
 						},
+						// functies die elke postcode meekrijgt
 						onEachFeature: function (feature, layer) {
 					        layer.on({
 					        	mouseover: highlightFeature,
@@ -302,29 +322,35 @@ function createMap(soort){
 					}).addTo(map);				
 				}
 			})
+			// als alle geojsons zijn geladen, haal dan de spinner weg
 			if (i == 999) {
 				spinner.stop();
 			}
 		}
 	}
 	
+	// plaats de legenda rechtsonderin
 	var legend = L.control({position: 'bottomright'});
 
+	// maak de legenda
 	legend.onAdd = function (map) {
 
 	    var div = L.DomUtil.create('div', 'info legend'),
+	    	// geef aan wat de grenzen zijn van de kleuren
 	        grades = [0, 50000, 100000, 150000, 200000, 250000, 300000, 350000, 400000, 450000, 500000, 700000, 1000000, 2000000],
 	        labels = [];
 
 	    // loop through our density intervals and generate a label with a colored square for each interval
 	    for (var i = 0; i < grades.length; i++) {
 	        div.innerHTML +=
+	        	// bepaal de juiste kleur op basis van de grenzen
 	            '<i style="background:' + getSquareColor(grades[i] + 1) + '"></i> ' +
 	            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
 	    }
 	    return div;
 	};
 
+	// voeg de legenda toe aan de kaart
 	legend.addTo(map);
 }
 

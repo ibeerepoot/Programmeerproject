@@ -14,6 +14,7 @@ function maakTabel(){
 	// get de value van het input field dat de gebruiker heeft ingevuld met een postcode
 	var zoekPostcode = document.getElementById('zoekPostcode').value;
 
+	// zorg dat de gebruikers wel iets in heeft gevuld
 	if (zoekPostcode == null || zoekPostcode == ""){
 		alert("Er moet een postcode worden ingevuld");
 	}
