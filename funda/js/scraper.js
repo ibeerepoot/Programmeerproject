@@ -135,9 +135,9 @@ function scrapeVerkocht(soort,vanm2,totm2){
 //scrapeVerkocht('appartement',100,110);
 //scrapeVerkocht('appartement',110,120);
 //scrapeVerkocht('appartement',120,130);
-scrapeVerkocht('appartement',130,140);
+//scrapeVerkocht('appartement',130,140);
 //scrapeVerkocht('appartement',140,160);
-//scrapeVerkocht('appartement',160,5000);
+scrapeVerkocht('appartement',160,5000);
 //scrapeVerkocht('woonhuis',0,50);
 //scrapeVerkocht('woonhuis',50,80);
 //scrapeVerkocht('woonhuis',80,90);
